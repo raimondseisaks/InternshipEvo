@@ -2,6 +2,7 @@ import java.util.Date
 import scala.io.StdIn.readDouble
 import scala.io.StdIn.readLine
 
+object Testing
 case class driving(speed: Double, place: String){
   def isOverSpeeding() : Unit =
     if (speed > 90 & place == "Pilseta") println("Sods 50 eiro") else println("Nav soda")

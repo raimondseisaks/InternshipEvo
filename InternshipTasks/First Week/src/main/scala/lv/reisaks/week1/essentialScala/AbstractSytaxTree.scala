@@ -33,15 +33,7 @@ sealed trait Expression {
                 else Success(num1 / num2)
             }
         }
-      case SquareRoot(exp) =>
-        exp.eval match {
-          case Failure(reason) => Failure(reason)
-          case Success(val1) =>
-            if (val1 < 0) Failure("Square root of negative number")
-            else Success(math.sqrt(val1))
-        }
 
-      case Number(value) => Success(value)
     }
 
 }
@@ -52,6 +44,7 @@ final case class Number(value : Double) extends Expression
 final case class Division(left: Expression, right: Expression) extends Expression
 final case class SquareRoot(value: Double) extends Expression
 
+//used in other files
 sealed trait Calculation
 final case class Success(result: Double) extends Calculation
 final case class Failure(reason: String) extends Calculation

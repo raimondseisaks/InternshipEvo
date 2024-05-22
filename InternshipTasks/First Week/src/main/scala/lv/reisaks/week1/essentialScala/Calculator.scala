@@ -1,7 +1,3 @@
-sealed trait Calculation
-final case class Success(result: Int) extends Calculation
-final case class Failure(reason: String) extends Calculation
-
 object Calculator {
   def +(calc: Calculation, operand: Int): Calculation =
     calc match {
@@ -23,3 +19,4 @@ object Calculator {
       case Failure(reason) => Failure(reason)
     }
 }
+
