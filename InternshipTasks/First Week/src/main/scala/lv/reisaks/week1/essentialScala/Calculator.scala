@@ -19,4 +19,3 @@ object Calculator {
       case Failure(reason) => Failure(reason)
     }
 }
-
