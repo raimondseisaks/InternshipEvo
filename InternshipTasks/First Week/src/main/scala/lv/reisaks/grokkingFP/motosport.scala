@@ -33,6 +33,6 @@ object TestProgramm extends App {
   val test2 = List()
   println("Total : " + motosport.totalTime(test2) + " Avg : " + motosport.avgTime(test2))  // Total : 0.0 Avg : 0.0 (Empty list)
   val test3 = List(10.0)
-  println("Total : " + motosport.totalTime(test3) + " Avg : " + motosport.avgTime(test3))  // Total : 0.0 Avg : 0.0 (First lap doesnt count)
+  println("Total : " + motosport.totalTime(test3) + " Avg : " + motosport.avgTime(test3))  // Total : 0.0 Avg : 0.0 (First lap doesn't count)
 
 }
