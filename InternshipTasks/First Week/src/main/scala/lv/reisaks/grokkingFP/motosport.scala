@@ -1,5 +1,4 @@
 package lv.reisaks.grokkingFP
-import java.util.ArrayList
 
 object motosport {
   def totalTime(laptimes : List[Double]) : Double = {
