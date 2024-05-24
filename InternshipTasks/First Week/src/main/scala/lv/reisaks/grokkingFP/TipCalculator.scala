@@ -8,7 +8,7 @@ object TipCalculator {
   }
 }
 
-object testProgramm extends App {
+object Test1 extends App {
   val group1 = List("Jackob", "Jane")
   println(TipCalculator.getTipPercentage(group1))    //10
   val group2 = List()

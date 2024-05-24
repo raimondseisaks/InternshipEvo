@@ -26,7 +26,7 @@ object motosport {
 }
 
 
-object TestProgramm extends App {
+object Test2 extends App {
   val test1 = List(31.0, 20.9, 21.1, 21.3)
   println("Total : " + motosport.totalTime(test1) + " Avg : " + motosport.avgTime(test1))  // Total : 63.3 Avg : 21.1
   val test2 = List()
