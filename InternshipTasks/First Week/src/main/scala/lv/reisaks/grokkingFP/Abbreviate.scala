@@ -4,19 +4,19 @@ package lv.reisaks.grokkingFP
 
 object Abbreviate {
   def abbreviate(name: String) : String = {
-    if (name.isEmpty) "Empty string!"
-    else {
-      val firstLetter = name.charAt(0)
-      val allNames = name.split(" ")
-      if (allNames.size == 1) {
-        allNames(0)
-      } else {
+    val allNames = name.split(" ")
+    allNames match {
+      case Array("") => "Empty string!"
+      case Array(head) => head
+      case Array(head, tail @ _*) => {
+        val firstLetter = name.charAt(0)
         val surnames = allNames.tail.mkString(" ")
         firstLetter + "." + " " + surnames
       }
+      }
     }
   }
-}
+
 
 object Test3 extends App {
   val abbr1 = "Alonzo Church"
