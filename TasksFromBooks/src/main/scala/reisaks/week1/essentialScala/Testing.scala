@@ -9,7 +9,7 @@ case class driving(speed: Double, place: String){
 }
 
 
-object Main {
+object Mainn {
   def main(args: Array[String]): Unit = {
     // Reading a string
     println("Speed: ")
