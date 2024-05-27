@@ -56,7 +56,7 @@ object Solver {
 
     writeIn(sortedList)
 
-    sortedList.sorted.mkString(" ")
+    sortedList.sortBy(_._2).mkString(" ")
   }
 
   def evaluateOmaha(board: String, hands: List[String]): String =
@@ -82,7 +82,6 @@ object Solver {
           }
         (hand, handTypeValue)
       }.toMap
-      // Group hands by their values
       val sortedList = handValuesMap.toList.sortBy(_._2)
 
       writeIn(sortedList)
