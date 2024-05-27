@@ -68,7 +68,7 @@ object Solver {
         val handStr = hand.mkString("")
         val ranks = handStr.grouped(2).map(_.head).toList
         val suits = handStr.grouped(2).map(_.last).toList
-
+        // Duplicated code i will fix
           val handTypeValue = (ranks, suits) match {
             case (r, s) if isStraightFlush(r, s) => 580 + ranksSum(r)
             case (r, _) if isFourOfAKind(r) => 510 + ranksSum(r)
