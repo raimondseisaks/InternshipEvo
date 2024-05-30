@@ -1,0 +1,5 @@
+scalac src/main/scala/reisaks/PokerHandEvaluator/Main.scala     //To build project in terminal
+scala reisaks.PokerHandEvaluator.Main < src/main/scala/reisaks/PokerHandEvaluator/input.in  //To launch project in terminal
+
+(You can change 'input.in' to your test file. It must be in the same directory as 'Main.scala')
+(The 'input.in' file is created with examples from the definition of the poker hand evaluator task))
