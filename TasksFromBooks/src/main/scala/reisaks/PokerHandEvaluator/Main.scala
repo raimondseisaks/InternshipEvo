@@ -85,17 +85,20 @@ object Solver {
     def validateTexasBoardAndHands(board: String, hands: List[String]): Boolean = {
       val validBoard = board.grouped(2).forall(isValidCard) && board.length == 10
       val validHands = hands.forall(hand => hand.grouped(2).forall(isValidCard)) && hands.forall(hand => hand.length==4)
-      validBoard && validHands
+      val isUnique = (board.grouped(2).toList ++ hands.mkString("").grouped(2)).distinct.size == (board.grouped(2).toList ++ hands.mkString("").grouped(2)).size
+      validBoard && validHands && isUnique
     }
 
     def validateOmahaBoardAndHands(board: String, hands: List[String]): Boolean = {
       val validBoard = board.grouped(2).forall(isValidCard) && board.length == 10
       val validHands = hands.forall(hand => hand.grouped(2).forall(isValidCard)) && hands.forall(hand => hand.length==8)
-      validBoard && validHands
+      val isUnique = (board.grouped(2).toList ++ hands.mkString("").grouped(2)).distinct.size == (board.grouped(2).toList ++ hands.mkString("").grouped(2)).size
+      validBoard && validHands && isUnique
     }
 
     def validateFiveCardHands(hands: List[String]): Boolean = {
-      hands.forall(hand => hand.grouped(2).forall(isValidCard)) && hands.forall(hand => hand.length==10)
+      val isUnique = (hands.mkString("").grouped(2)).distinct.size == (hands.mkString("").grouped(2)).size
+      hands.forall(hand => hand.grouped(2).forall(isValidCard)) && hands.forall(hand => hand.length==10)  && isUnique
     }
 
     val ErrorPrefix = "Error: "
