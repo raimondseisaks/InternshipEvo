@@ -108,7 +108,7 @@ object Solver {
     }
   }
 
-  def createHandObject (permutation: List[String], hand: String): Hand = {
+  def createHandObject (permutation: List[String], hand: String): Hand = { //Create combination object
       val handStr = permutation.mkString("")
       val ranks = handStr.grouped(2).map(_.head).toList
       val suits = handStr.grouped(2).map(_.last).toList
