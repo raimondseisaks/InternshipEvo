@@ -258,7 +258,7 @@ object Solver {
   }
 
   def writeIn(hands: List[Hand]): Unit = {
-    val writer = new PrintWriter(new FileWriter("output.txt", true))
+    val writer = new PrintWriter(new FileWriter("src/test/scala/output.txt", true))
     printSmallestHands(hands)
     writer.println()
     writer.close()
@@ -266,7 +266,7 @@ object Solver {
 
   def printSmallestHands(hands: List[Hand]): Unit = {
     if (hands.nonEmpty) {
-      val writer = new PrintWriter(new FileWriter("output.txt", true))
+      val writer = new PrintWriter(new FileWriter("src/test/scala/output.txt", true))
       val minCombinationValue = hands.map(_.combination).min
       val handsMix = hands.filter(_.combination == minCombinationValue)
       val smallestHand = findMinHand(handsMix)
