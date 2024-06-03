@@ -45,6 +45,7 @@ object Solver {
   }
 
   case class Straight(ranks: List[Char], myHand: String) extends Hand {
+    override val rankValues = if (ranks.head != 'A') ranks.map(baseValues).sorted.reverse else ranks.map(baseValues.updated('A', 1)).sorted.reverse
     val combination = 800
     val compareList = List(rankValues.head)
   }
