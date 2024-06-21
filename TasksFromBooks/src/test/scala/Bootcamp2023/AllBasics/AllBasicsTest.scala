@@ -1,6 +1,4 @@
 package Bootcamp2023.AllBasics
-
-import org.scalatest._
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
 import reisaks.Bootcamp2023.AllBasics._
@@ -15,7 +13,7 @@ class AllBasicsTest extends AnyFlatSpec with should.Matchers {
   }
 
   "LCM" should "find LCM from x and y" in {
-    LCM(2, 3) shouldEqual Some(6)
-    LCM(0,5) shouldEqual Some(0)
+    LCM(2, 3) shouldEqual 6
+    LCM(0,5) shouldEqual 0
   }
 }

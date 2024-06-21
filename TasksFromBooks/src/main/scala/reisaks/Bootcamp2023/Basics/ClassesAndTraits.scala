@@ -1,4 +1,5 @@
-package reisaks.Bootcamp2023
+package reisaks.Bootcamp2023.Basics
+
 
 trait HasBalance {
   def balance: Double
@@ -11,6 +12,18 @@ final case class Stack[A](elements: List[A] = Nil) {    //Added simple data vali
   else Right(elements.head)
   def pop: Either[String, (A, Stack[A])] = if (elements.isEmpty) Left("Stack is empty") else Right(elements.head, Stack(elements.tail))
 }
+
+trait Account extends HasBalance {
+  // def addMoney(amount: Double)
+  // def takeMoney(amount: Double)
+}
+
+sealed trait User {
+  def login: String
+}
+
+final case class RegularUser(login: String, balance: Double) extends User with Account
+
 
 object ClassesAndTraits extends App {
   def totalBalance(accounts: List[HasBalance]): HasBalance = {
@@ -33,25 +46,5 @@ object ClassesAndTraits extends App {
       case n if (n % 5 == 0) => "buzz"
       case _ => n.toString
     }
-
-  val entity1 = new HasBalance { def balance: Double = 100 }
-  val entity2 = new HasBalance { def balance: Double = 200 }
-  val entity3 = new HasBalance { def balance: Double = 500 }
-
-  println(totalBalance(List(entity1, entity2, entity3)).balance) /// 800.0
-
-  val stack = Stack(List(4,3,2,1))
-  val stack2 = Stack[Int](List())
-  println(stack.push(5))    // Stack(List(5, 4, 3, 2, 1))
-  println(stack.peek)       // 4
-  println(stack.pop) // (4,Stack(List(3, 2, 1)))
-
-  println(stack2.peek) // Left(Stack is empty)
-  println(stack2.pop)  // Left(Stack is empty)
-  println(stack2.push(3)) //Stack(List(3))
-
-  println(fixxBuzz(15))  //FizzBuzz
-
-  println(fizzBuzz2(15)) //FizzBuzz
   }
 

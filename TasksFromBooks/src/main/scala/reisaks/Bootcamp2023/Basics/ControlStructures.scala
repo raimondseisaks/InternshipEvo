@@ -1,6 +1,4 @@
-package reisaks.Bootcamp2023
-
-import scala.annotation.tailrec
+package reisaks.Bootcamp2023.Basics
 
 object ControlStructures extends App {
   def applyNTimesForInts(f: Int => Int, n: Int): Int => Int = {
@@ -31,10 +29,4 @@ object ControlStructures extends App {
   } yield (x, y)
 
   val AUnionB = a.map(Left(_)) ++ b.map(Right(_))
-
-  println(applyNTimesForInts(_ + 1, 4)(3))  //7
-  println(polymorphicApplyForIntsV1((x: Int) => x + 1, 4)(3))  //7
-  println(polymorphicApplyForIntsV2((x: Int) => x + 2, 4)(3))  //11
-  println(AProductB)
-  println(AUnionB)
 }
