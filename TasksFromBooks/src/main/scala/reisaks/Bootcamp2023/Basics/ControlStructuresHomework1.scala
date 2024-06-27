@@ -61,8 +61,8 @@ object ControlStructuresHomework1 extends App {
     }
     val githubPoints = starsOnGithub.toString.length-1
 
-    val points = if (passedTests < 5) -1 else yearPoints + educationPoints + (passedTests - 5) + coutryPoins + githubPoints
 
+    val points = if (passedTests < 5) -1 else yearPoints + educationPoints + (passedTests - 5) + coutryPoins + githubPoints
     points match {
       case -1 => false
       case num if num < 10 => false
