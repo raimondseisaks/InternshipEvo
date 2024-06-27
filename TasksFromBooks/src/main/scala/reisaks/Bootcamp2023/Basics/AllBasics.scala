@@ -31,7 +31,7 @@ object AllBasics  {
     (math.abs(num1), math.abs(num2)) match {
       case (0, 0) => -1
       case (num1, num2) if (num1 == 0 || num2 == 0) => 0
-      case (num1, num2) => num1*(num2)/GDC(num1, num2)
+      case (num1, num2) => num1*num2/GDC(num1, num2)
     }
   }
 

@@ -34,7 +34,7 @@ object DataStructures {
     vegetableWeights.flatMap { case (vegetable, weight) =>
       vegetableAmounts.get(vegetable) match {
         case Some(amount) => Some((vegetable, amount * weight))
-        case None => None
+        case _ => None
       }
     }
   }
