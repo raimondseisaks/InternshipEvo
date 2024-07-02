@@ -24,7 +24,7 @@ class PokerHandEvaluatorTest extends AnyFunSuite {
       }
     }
 
-    file1.delete()
+    file1.delete() //every time generates file with same name
   }
 
   test("Check if two files have the same content line by line with input01") {
