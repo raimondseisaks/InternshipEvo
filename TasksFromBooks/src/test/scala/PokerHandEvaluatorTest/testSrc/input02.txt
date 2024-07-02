@@ -1,0 +1,113 @@
+texas-holdem 4cKs4h8s7s Ad4s Ac4d As9s KhKd 5d6d
+texas-holdem 5s6s5h7sTs Ad3s Ac4d 4s8s KhKd 5d6d
+texas-holdem 5s6s5h7sTs Ad3s 8c4d 4s8s KhKd 5d6d
+texas-holdem 8h6s5h7sTs Ad3s 9c8d 4s8s KhKd 5d6d
+texas-holdem 3h6s5h7sTs 3d3s 9c8d 4s8s KhKd 5d6d
+texas-holdem 3h6s5h7sKs 3d3s 9c8d 4s8s Kh7d 5d6d
+texas-holdem 3h6s5h7sKs 3d3s 9c8d 4s8s KhTd 5d6d
+texas-holdem 3h6s5h7sKs 3d3s 9c8d 4s8s QhTd 5d6d
+texas-holdem KhKsQsQh8s KcQd KdQc 4sTh Ts5h Jh6s
+texas-holdem 2h3h4h5d8d KdKs 9hJh
+texas-holdem 5c6dAcAsQs Ks4c KdJs 2hAh Kh4h Kc7h 6h7d 2cJc
+texas-holdem 4s5c5s6sQs Js9d Kd2s Tc6d 6cJc 8dKh 4h3d 3cKs
+texas-holdem 4c4h4s6c6h 3dJc 2c5c 7h6s TsQc
+texas-holdem 5s9cJcKcQc 7h7s 9s2c QhAc AsKh 9d4c 2h8s
+texas-holdem 6c6d6hJdJs KdTc 5h8d QcTd 4s8c 9s4c AsKc Jc3d
+texas-holdem 8s9sJhKsTs 4sJc 2c7h 4d6h JdAs Kh5c Ah6s 3sTh 4hTc
+texas-holdem 9sAsKsQcQs 3cAh JsTd 5d6s JcTh 2s7c Kh9h 8c8d 5s2h
+texas-holdem 6h7d8h9hQh ThTs KsAs 8cAc 3sAd 3h4c 2d4h
+texas-holdem 7c7h7sTcTd 5d9c 6dQc JcTh 3h4d 2cKd 5h3d
+texas-holdem 2hAdJdQdTd 7dTs Qh4c 5hQc Jc8s 7s3d 4sJh 9d3s 2s2c
+texas-holdem 9dAdKdTdTs 7dKc 6dAh 9s2s 7c5c 4sJh Qs5h
+texas-holdem 3d8c9cAcKc QcTh Qd8d 9hTc 9d4h 4c7d 2d5c 7s8s 2hAs TdQh
+texas-holdem 8hAhJhQhTs Ac2s AdJs 7h2d 9sKh 4c6s 5s3h Tc4h Jd6d
+texas-holdem 9sJsQdQsTs 3d9c Td2d 2h4s 3sAd 9h3h AhAs 3c6s
+texas-holdem 5h8dAdKdQd 9s7h 3c2d 5s9d 4s2c 3d8s 7dAs 9c2s
+texas-holdem 6dJdKdQcQd 6c5c 4h7s Tc4d Qs2s 2d9c
+texas-holdem 2d2h2s9c9s 2cTd 6d9h Kc4s
+texas-holdem 5s7h9hJhQh 2c8c 3h9c 4d5h 2s6c 3d4h 8h5c
+texas-holdem 8hAhJdKhTh JhQs 4h3s As6c Kd8d 6h7d Kc2d
+texas-holdem 6c6d6s8d9h 6hKh Jh7h 7sKc 8c8s 9d5s Ah4h 5dQd 5c2d Jd7d
+texas-holdem 2c7hAhJhTh 3s5h Jc6s 4d3h 7c2s 5dTd
+texas-holdem 9sKsQsTdTs 4h5c Qd7c KdQc 6d8c 2dJc 5s5h 8s4s AsJd
+texas-holdem 7h8cJhQhTh 4cJd 6c8s Kd8d 2h3d Kc9c 4d3h Tc6s
+texas-holdem 4c4s7c7d7s 8c3h 2hJh 9h6c QsJc 2s3d Ad4h 2c8d Kd2d Th6d
+texas-holdem 4s7c9cAcKc 8sKd Jd3d 2c6c Ks5h AhAs 9h3c 8h4d TsKh
+texas-holdem 3d3hQcQdQh 6s8s 6c8h 9s4s Ac8d 2cKd Jh3s
+texas-holdem 4h5d6d9dAd TsJs As7s 2cTd 4c9h Ks5h 7h2d Kc6s 5s4d
+texas-holdem 9c9sJdJhJs Td5c 6h8s QsAs 4c4s 4d5h 3s3c 5d6c 3d9d
+texas-holdem 2d6s8sJsQs 2sAh 7cTh 4c8d 3sAc 6cQc 4s3c Ts2h Qh5c
+texas-holdem 3c3hJcJdJs Kd8s 3d5s Ah4d
+texas-holdem 3c5s8sJsQs 2c4h 5c2s 8cAs 8h7s 2d6d 9c3h Jh4s
+texas-holdem 2h6c7c9cJc Tc8h 3d2c Ad5c 9s7h 4d8s
+texas-holdem 2h5d8d9dKd 4dTs TcKc 8c9h 3cAc 3d7s Ah6c 4hAs
+texas-holdem 4c5c5h5sJc 8s2s JsJd Jh4s
+texas-holdem 3h5d6d7dKd Jd8h Qd9c 4d8s 4hTd Kc5h 2dTs QhQs 5s8c 3s4s
+texas-holdem 3d5h6h7hAh 7s5d KcTc Jd3s 8cKd 3h9d Jc2h 8sAc 9h4h Kh4s
+texas-holdem AhJdKdQdTd 7d5s AdJc 8dTs 2c6h 2dKh
+texas-holdem 7sAsJsQsTs 8s4c 5c4h
+texas-holdem 2d6dAdKdQd 6h7d 8dTc Js5d 2sQs 3dQc 8h4s 5c8s 8cKs
+texas-holdem 2cKcKdThTs TdKs 2h2s
+texas-holdem 3d8sAsJsKs 6dJd 8c4d 2d7d 8dTs Ad8h QhAh 4sJc 3cKc 3sKd
+texas-holdem 7d8dJdQdTc 2d7h 3s6s KcJs 4cQc Ts8s 5c6h 2c3c 7s6d
+texas-holdem 2d2h9c9h9s 3c4d 7d2c Jd5c 3s4c
+texas-holdem AdJcJdQdTd 8hAh JhKc 2h9c Kd6c 7d5h Qs4d Qc2s AcTc 9hTs
+texas-holdem 8dAhKdQdTd 3d2c 5hJs Th8c 5s9h 7h4h 6cKc TcQc 4c6s 6d3h
+texas-holdem 4h7hAhAsTh 2h4c 7c2c 3s3h QhTd 2d4s
+texas-holdem 8c9cJcJhTc Ts2d 4c9s Qd6c KdQh 8s8h
+texas-holdem 4h4s5c5dKd 4d5h 3dQd Js9s 2cKc 3sKs 8c7s 5s9c ThTd
+texas-holdem 4s7h9sAsKs 9h3s 3hJc QdAh 5sKh 7cQc 4dKd 8cTs 4cTh 2s5d
+texas-holdem 4c4d4h6s7c Qc9c Th8s 6d6c 9s6h 7s7h Jh3s 5s2h JsJc 2d3h
+texas-holdem 3h7s8c8d8h 5cKs 3c3s 2hTs 2sTd Qh9h 2d2c KcTh Kh7c 5s4h
+texas-holdem 5c6s7s8sJs AhTh 2d7c JhAs 3c7h 3s5d 2h7d Qd5s Kd4s
+texas-holdem 2c5c9cAcTc 5s3c AsAd Qs4h 5dQc 7c7d 2sJc 6h4c 7s7h
+texas-holdem 3c3d3h7c8h 6h4h KdJs QhKc 2cAd TsTh 6c3s 5c9h 9sKh 7d7s
+texas-holdem 4h8hAhAsQh 5s8d 2h3c Ac3h 4sKh 3s5c 6d2d 4c9s 5d3d
+texas-holdem 2d2h8c8d8h 3hTd 6s2c AsKh Jc6d
+texas-holdem 4sJhQdQhQs Kd5s JcJd 2d5d ThAs
+texas-holdem 6h7d8dJdQd 6c9s 3cTc 4c4h 6s3d 9hJc 7sKh KcQh 5c6d
+texas-holdem 2c2h2sAcAs 3s8h 9s4d 7sTs AdQd 6h6d Jh7d
+texas-holdem 7c7d7s8c8d KdJh 7hQs Ac8h 4dJs 5h4c
+texas-holdem 6h9hAsQhTh 5h8s 8h2d AcTd 6s3h
+texas-holdem 6c8dKcKdKh 2sQc 4d4s TcJc Th3c 3h5c Ks7d 6s6h QdTd
+texas-holdem 7c7d8d9dQd 3c5h Kc5s Js6d 3d4d 9h2s TsKh 7hAc
+texas-holdem 6s8sAsKsQc 6c2s 8cJs Td5c 5s3s Tc4s Kd5h 7h8d Kh8h
+texas-holdem 2h2s7d7h7s Ad2d QhAh 8c5c
+texas-holdem 2c9sJsQsTs Jd3h 8hTd Qc5d KhKd 6sAs 3d3s 4dKs 5s2d KcTc
+texas-holdem 3d9cAcKcQc 7c3s 8h6h KhAs 5c2d TsJc 5hAh 2s3c
+texas-holdem 5d8dAhKdTd 9h3d QhTs 6s8c Ks4s 5h2d 2sJc QdJh 6dTh 6h7h
+texas-holdem 5h7c8c9cKc 2s5d QsTd 2hTc 2cJs Jd5c 9hAc Ks8d 6hKh
+texas-holdem 3s8dJdKdTd Qh6d 3c3d 2hJs Ah4c TcAs
+texas-holdem 5h8dAdKdTd Jh5d AhTs 8c7c Kh6d 8hQh
+texas-holdem 9sAsKsQsTd 4c4h 7h4d Qd2s 3sTs 6c4s 2hQh 5s3h 7dJh
+texas-holdem 8c8d8sKcKs 7h6d 9h6h 3c5h JdKh Jh7s Js2c 9s2h 4cAd
+texas-holdem 7d9dAdJcJd 3h6d 5dKs Qs4h 5sTs TdTh 9sTc 2dKh
+texas-holdem 8s9sJsQdTs Kc5s 5d3s 9h7s 4c5h
+texas-holdem 2d5d8dAdQd 3h7h Js4s Tc6s 5cAh Ks2h 3d5h 9dJd 4hKh
+texas-holdem 6cAcKcTcTd 9c7h Qc8d 3h3c JsJh 4cTh
+texas-holdem 3d3h6d6h6s 2s5s TsAd 6c9c 5d9h Qs8d JsKc 3sAh
+texas-holdem 7hAhJhQhTh 6hKs Js5h 9s2d TcQd AsJc 9h8d 6c6d 5c8c
+texas-holdem 4d9dJdQdTc Jc2d 6s2s Qs9s 3d8c Ac3s 5s7c 2hTd 3h4c
+texas-holdem 4c8d8hAdAh 7hQd 9c2d As7s Ks6c QsTs 6dJc 8sAc Th5c
+texas-holdem 5s9hAhJhTh Ac8h 5h9c As6d
+texas-holdem 4s6s8s9sJs Ks4d 8dKd QsJc Qh5s 6dAs Th2d TdQd
+texas-holdem 2c2d2s8dTh 8sQc Kc9c JhQh 3cKs Js4h 5cQd 6dAd TcTd 2h3s
+texas-holdem 2s3d3h3s4s 5s5c 8sQs 2d2c 5hTs
+texas-holdem 5d8dAdKdTs 6c3h 7sJc Kh4s 3cAh 3d2h 8c2d 6h6d
+texas-holdem AhJhQdQhTh 9sAd Kh2c Js2d TdTc 9cKd 5s5h As8d 7hKc 3dAc
+texas-holdem 8hAhJdJhTh 3c2d 7c3d KhQd 8c4d 4h2h KdTc KsQc 3h2c
+texas-holdem 7h9dAhJhKh 2dJd 8s9c 9sKs Js4h AdKc Th6s 2s6h 7s5s AsQc
+texas-holdem 5c9hAhKhQh 4s4c 8dKd Js4d 3h5h 9d5d 8h2d
+texas-holdem 9hAcAsQdQs 2c6s 5sAh QcAd 6d8s
+texas-holdem 2c4c6c9cAc As9d AhKs 8hJc 3c8s
+texas-holdem 4s5c9d9h9s 3dTh Ad2c 7c6h 5d5s 4dTs Jd6c Qs2h
+texas-holdem 8hKhQcQhTh 8dQs 2s5c 7d3s 4cJd 6hAh QdJh 2c7h 3hTc 9c6c
+texas-holdem 4dAdQdTdTs 2s2d As3d 5s9s 2hAc 2cKh 8cJd Th8d
+texas-holdem 7s9dJdKdTd 3d8d 9s5c 7d4s 9cQh Ts2c Jh5h KhQd
+texas-holdem 5h9hJdJhTh 2hTc QsQh Ac6s 3hKd 5cQc 4s7d 5d9c Js8d
+texas-holdem 3d5d6d8dQd 3c8h 4d5c Qs4h 2d3h Ks9h 2cJh
+texas-holdem 2c2d2s5sAc Kc9c 4s3c 5c5d Tc7h
+texas-holdem 6d8dKcKdQd JsAs 6c3d Jd2h 2c8h 5d3c Ts2d KhQc 5c9d
+texas-holdem 3s7c8c9cAc As7d Kh3c 5d7h 4c8d 2c3d 6cJh
+texas-holdem 4c4s5d5s7h 6d8s Ks6c JhAs 8dJs AcQc Qd6h 3c2h 4h5c
+texas-holdem 5c5h5s8sAc 3h6d 6c9s 7cJd As6s 9cAd 4sTd Ts3d 8c8h
