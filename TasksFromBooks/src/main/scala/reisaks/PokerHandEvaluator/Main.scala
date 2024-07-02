@@ -259,7 +259,7 @@ object Solver {
   }
 
   def writeIn(hands: List[Hand]): Unit = {
-    val writer = new PrintWriter(new FileWriter("src/test/scala/output.txt", true))
+    val writer = new PrintWriter(new FileWriter("src/test/scala/PokerHandEvaluatorTest/testSrc/output.txt", true))
     printSmallestHands(hands)
     writer.println()
     writer.close()
@@ -267,25 +267,28 @@ object Solver {
 
   def printSmallestHands(hands: List[Hand]): Unit = {
     if (hands.nonEmpty) {
-      val writer = new PrintWriter(new FileWriter("src/test/scala/output.txt", true))
+      val writer = new PrintWriter(new FileWriter("src/test/scala/PokerHandEvaluatorTest/testSrc/output.txt", true))
       val minCombinationValue = hands.map(_.combination).min
       val handsMix = hands.filter(_.combination == minCombinationValue)
       val smallestHand = findMinHand(handsMix)
-      if (smallestHand.length > 1) {
-        val smallestHandSorted = smallestHand.sortBy(_.myHand)
-        smallestHandSorted.foreach { hand =>
-          if (hand == smallestHandSorted.last)
-            writer.print(s"${hand.myHand} ")
-          else
-            writer.print(s"${hand.myHand}=")
-        }
-      } else {
-        writer.print(s"${smallestHand.head.myHand} ")
-      }
       val withoutWeak1 = hands.filterNot(_.combination == smallestHand.head.combination)
       val withoutWeak2 = hands.filter(_.combination == smallestHand.head.combination)
       val withoutWeak3 = withoutWeak2.filterNot(_.compareList == smallestHand.head.compareList)
       val withoutWeak4 = withoutWeak1 ++ withoutWeak3
+
+      if (smallestHand.length > 1) {
+        val smallestHandSorted = smallestHand.sortBy(_.myHand)
+        smallestHandSorted.foreach { hand =>
+          if (hand == smallestHandSorted.last) {
+            if (withoutWeak4.isEmpty) writer.print(s"${hand.myHand}")
+            else writer.print(s"${hand.myHand} ")
+          } else
+            writer.print(s"${hand.myHand}=")
+        }
+      } else {
+        if (withoutWeak4.isEmpty) writer.print(s"${smallestHand.head.myHand}")
+        else writer.print(s"${smallestHand.head.myHand} ")
+      }
       writer.close()
       printSmallestHands(withoutWeak4)
     }
