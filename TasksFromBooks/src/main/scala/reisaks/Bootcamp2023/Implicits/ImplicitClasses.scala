@@ -56,10 +56,5 @@ object ImplicitClasses {
     2 pow 12
     72.concat(456)
     List(1, 2, 3, 4, 5).mean
-
-
-  }
-
-
-
+}
 }
