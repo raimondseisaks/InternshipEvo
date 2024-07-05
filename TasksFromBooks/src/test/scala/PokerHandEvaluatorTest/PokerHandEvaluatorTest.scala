@@ -22,7 +22,7 @@ class PokerHandEvaluatorTest extends AnyFunSuite {
       withClue(s"Comparison failed at line $idx: '$line1' != '$line2'") {
         assert(line1 == line2)
       }
-    } 
+    }
 
     file1.delete() //every time generates file with same name
   }
