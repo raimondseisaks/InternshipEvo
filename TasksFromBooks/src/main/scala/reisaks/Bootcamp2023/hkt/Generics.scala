@@ -20,9 +20,11 @@ object Generics extends App {
   }
 
   object Triple {
-    def fromList[A](elements: List[A]): Option[Triple[A]] =  // exercise 2 : implement
-      if(elements.length == 3) Some(Triple(elements.head, elements.tail.head, elements.last))
-      else None
+    def fromList[A](elements: List[A]): Option[Triple[A]] = // exercise 2 : implement
+        elements match {
+          case List(x,y,z) => Some(Triple(x, y, z))
+          case _ => None
+        }
 
     sealed trait Index
 
@@ -40,7 +42,7 @@ object Generics extends App {
 
     def stop(last: M): R
 
-    def contramap[B](f: B => A): Walker[B, M, R] =  new Walker[B, M, R] {    // exercice 5 implement
+    def contramap[B](f: B => A): Walker[B, M, R] = new Walker[B, M, R] { // exercice 5 implement
       def init: M = Walker.this.init
 
       def next(element: B, previous: M): M = Walker.this.next(f(element), previous)
@@ -54,31 +56,28 @@ object Generics extends App {
 
     def walk[M, R](walker: Walker[A, M, R]): R
 
-    def map[B](f: A => B): Collection[B] = new Collection[B] {  // exercise 6 : implement
+    def map[B](f: A => B): Collection[B] = new Collection[B] { // exercise 6 : implement
       def walk[M, R](walker: Walker[B, M, R]): R = {
-
-        val mappedWalker = new Walker[A, M, R] {
-          def init: M = walker.init
-          def next(element: A, previous: M): M = walker.next(f(element), previous)
-          def stop(last: M): R = walker.stop(last)
-        }
-
-        Collection.this.walk(mappedWalker)
+        Collection.this.walk(walker.contramap(f))
       }
     }
 
-    def flatMap[B](f: A => Collection[B]): Collection[B] = new Collection[B] {   // HomeWork 2 : implement
+    def flatMap[B](f: A => Collection[B]): Collection[B] = new Collection[B] { // HomeWork 2 : implement
       def walk[M, R](walker: Walker[B, M, R]): R = {
         val intermediateWalker = new Walker[A, M, M] {
           def init: M = walker.init
+
           def next(element: A, previous: M): M = {
             val collectionB = f(element)
             collectionB.walk(new Walker[B, M, M] {
               def init: M = previous
+
               def next(e: B, p: M): M = walker.next(e, p)
+
               def stop(last: M): M = last
             })
           }
+
           def stop(last: M): M = last
         }
         val finalState = Collection.this.walk(intermediateWalker)
@@ -88,18 +87,12 @@ object Generics extends App {
   }
 
   object Collection {
-    def apply[A](seq: A*): Collection[A] = new ConcreteCollection(seq.toList)  // Homework 1: implement
-
-    private class ConcreteCollection[A](elements: List[A]) extends Collection[A] {
+    def apply[A](seq: A*): Collection[A] = new Collection[A] {
       def walk[M, R](walker: Walker[A, M, R]): R = {
-        var state = walker.init
-        for (element <- elements) {
-          state = walker.next(element, state)
-        }
-        walker.stop(state)
+        val collection = seq.foldLeft(walker.init)((state, element) => walker.next(element, state))
+        walker.stop(collection)
       }
     }
   }
-
 }
 
