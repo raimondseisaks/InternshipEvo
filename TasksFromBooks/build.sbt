@@ -85,7 +85,7 @@ scalacOptions ++= Seq(
   "-feature",
   "-Ymacro-annotations",
 )
-
+addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.3" cross CrossVersion.full)
 
 
 
