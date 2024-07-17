@@ -1,4 +1,6 @@
 object Calculator {
+  def apply() = ???
+
   def +(calc: Calculation, operand: Int): Calculation =
     calc match {
       case Success(result) => Success(result + operand)

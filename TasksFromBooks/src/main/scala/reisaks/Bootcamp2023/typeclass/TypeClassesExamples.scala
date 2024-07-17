@@ -1,7 +1,8 @@
 package reisaks.Bootcamp2023.typeclass
 
-import cats.Semigroupal
-import cats.data.NonEmptyList
+import cats.kernel.Monoid
+
+import scala.collection.immutable.HashMap
 
 
 object TypeClassesExamples extends App {
@@ -33,7 +34,7 @@ object TypeClassesExamples extends App {
 
   // 1.3. Implement combineAll(list: List[A]) for non-empty lists
   def combineAll[A: Semigroup](list: List[A]): A =
-    list.reduceLeft((acc, w) => implicitly[Semigroup[A]].combine(acc, w))
+    list.reduceLeft((acc, w) => acc.combine(w))
 
   println(combineAll(List(1L, 2L, 3L)))
 
@@ -60,20 +61,33 @@ object TypeClassesExamples extends App {
 
   }
   // 2.3. Implement combineAll(list: List[A]) for all lists
-
   import monoidInstances._
 
   def combineAllL[A: Monoid](list: List[A]): A =
-    list.foldLeft(implicitly[Monoid[A]].empty)((acc, w) => implicitly[Monoid[A]].combine(acc, w))
+    list.foldLeft(implicitly[Monoid[A]].empty)((acc, w) => acc.combine(w))
 
   println(combineAllL(List(1L, 2L, 3L)))
 
   // 2.4. Implement Monoid for Option[A]
 
-  // 2.5. Implement Monoid for Function1 (for result of the function)
+  implicit def optionMonoid[A](implicit A: Semigroup[A]): Monoid[Option[A]] = new Monoid[Option[A]] {
+    override def empty: Option[A] = None
 
-  // combineAll(List((a: String) => a.length, (a: String) => a.toInt))        === (a: String) => (a.length + a.toInt)
-  // combineAll(List((a: String) => a.length, (a: String) => a.toInt))("123") === 126
+   override def combine(x: Option[A], y: Option[A]): Option[A] =
+      (x, y) match {
+        case (Some(x), Some(y)) => Option(A.combine(x, y))
+        case (Some(x), _) => Some(x)
+        case (_, Some(y)) => Some(y)
+        case (_ , _) => None
+      }
+  }
+
+  // 2.5. Implement Monoid for Function1 (for result of the function)
+  implicit def function1Monoid[A, B](implicit B: Monoid[B]): Monoid[A => B] = new Monoid[A => B] {
+    override def empty: A => B = _ => B.empty
+
+    override def combine(f: A => B, g: A => B): A => B = a => B.combine(f(a), g(a))
+  }
 
   // 3. Functor
   trait Functor[F[_]] {
@@ -93,7 +107,11 @@ object TypeClassesExamples extends App {
   }
 
   // 3.1. Implement Functor for Map values
-
+  implicit def mapFunctor[K]: Functor[Map[K, *]] = new Functor[Map[K, *]] {
+    override def map[A, B](fa: Map[K, A])(f: A => B): Map[K, B] = fa.map {
+      case (k, v) => k -> f(v)
+    }
+  }
 
   // 4. Semigroupal
   // 4.1. Semigroupal provides `product` method,
@@ -130,12 +148,20 @@ object TypeClassesExamples extends App {
       (tuple._1 product tuple._2).map(f.tupled)
   }
 
- // (Option(1), Option(2)).mapN(_ + _) == Some(3)
- // (Option(1), None).mapN(_ + _) == None
+ println((Option(1), Option(2)).mapN(_ + _) == Some(3))
 
   // 4.6. Implement Semigroupal for Map
+  implicit def semigroupalMap[K]: Semigroupal[({ type L[A] = Map[K, A] })#L] = new Semigroupal[({ type L[A] = Map[K, A] })#L] {
+    override def product[A, B](fa: Map[K, A], fb: Map[K, B]): Map[K, (A, B)] = {
+      val onlyKeys = fa.keySet.intersect(fb.keySet)
+      onlyKeys.map{ k =>
+          k -> (fa(k), fb(k))
+        }.toMap
+      }
+    }
 
-  // (Map(1 -> "a", 2 -> "b"), Map(2 -> "c")).mapN(_ + _) == Map(2 -> "bc")
+
+  println((Map(1 -> "a", 2 -> "b"), Map(2 -> "c")).mapN(_ + _) == Map(2 -> "bc"))
 
   // 5. Applicative
   trait Applicative[F[_]] extends Semigroupal[F] with Functor[F] {
@@ -166,23 +192,37 @@ object TypeClassesExamples extends App {
       case _ => None
     }
   }
-  // traverse(List(1, 2, 3)) { i =>
-  //   Option.when(i % 2 == 1)(i)
-  // } == None
 
-  // traverse(List(1, 2, 3)) { i =>
-  //   Some(i + 1)
-  // } == Some(List(2, 3, 4))
+  traverse(List(1, 2, 3)) { i =>
+    Option.when(i % 2 == 1)(i)
+  }.isEmpty
+
+  traverse(List(1, 2, 3)) { i =>
+    Some(i + 1)
+  }.contains(List(2, 3, 4))
+
 
   // 5.3. Implement `traverseA` for all Applicatives instead of Option
 
-  // traverseA(List(1, 2, 3)) { i =>
-  //   Either.cond(i % 2 == 1, i, "Error")
-  // } == Left("Error")
+  def traverseA[A, B, C](as: List[A])(f: A => Either[B, C]): Either[B, List[C]] = {
+    as.foldRight(Right(List.empty[C]): Either[B, List[C]]) { (a, acc) =>
+      acc.flatMap { list =>
+        f(a) match {
+          case Left(err)  => Left(err)
+          case Right(value) => Right(value :: list)
+        }
+      }
+    }
+  }
 
-  // traverseA(List(1, 2, 3)) { i =>
-  //   Right(i + 1): Either[Int, Any]
-  // } == Right(List(2, 3, 4))
+
+  println(traverseA(List(1, 2, 3)) { i =>
+     Either.cond(i % 2 == 1, i, "Error")
+  } == Left("Error"))
+
+  println(traverseA(List(1, 2, 3)) { i =>
+     Right(i + 1): Either[Int, Any]
+  } == Right(List(2, 3, 4)))
 
   // Scala Typeclassopedia: https://github.com/lemastero/scala_typeclassopedia
 }

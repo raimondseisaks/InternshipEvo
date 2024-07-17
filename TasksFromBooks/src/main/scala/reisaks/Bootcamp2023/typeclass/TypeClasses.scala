@@ -1,7 +1,6 @@
 package reisaks.Bootcamp2023.typeclass
 
 import reisaks.Bootcamp2023.typeclass.FPJson.InstancesTask.Player
-import reisaks.Bootcamp2023.typeclass.FPJsonSugared.Jsonable
 
 final case class Json(s: String) { // simplified representation of JSON
   override def toString: String = s

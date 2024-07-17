@@ -1,5 +1,7 @@
 package reisaks.Bootcamp2023.typeclass
 
+import scala.annotation.tailrec
+
 object TypeClassesHomework extends App {
 
   object OrderingTask {
@@ -131,16 +133,19 @@ object TypeClassesHomework extends App {
       override def foldMap[A, B](as: List[A])(f: A => B)(implicit monoid: Monoid[B]): B =
         as.foldLeft(monoid.empty)((acc, w) => monoid.combine(acc, f(w)))
 
-      override def foldLeft[A, B](as: List[A])(z: B)(f: (B, A) => B): B =
+      @tailrec
+      override def foldLeft[A, B](as: List[A])(z: B)(f: (B, A) => B): B = {
         as match {
           case Nil => z
-          case _ => as.foldLeft(z)((acc, w) => f(acc, w))
+          case h :: t => foldLeft(t)(f(z, h))(f)
         }
+      }
 
+      @tailrec
       override def foldRight[A, B](as: List[A])(z: B)(f: (A, B) => B): B =
         as match {
           case Nil => z
-          case _ => as.foldLeft(z)((acc, w) => f(w, acc))
+          case h :: t => foldRight(t)(f(h, z))(f)
         }
 
     }
