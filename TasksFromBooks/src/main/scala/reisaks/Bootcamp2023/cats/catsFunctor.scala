@@ -1,5 +1,7 @@
 package reisaks.Bootcamp2023.cats
 
+import cats.Monoid
+
 object catsFunctor {
 
   /** Functor is a "map" operation as a type class
@@ -11,18 +13,20 @@ object catsFunctor {
    */
   val optFunctor: Functor[Option] = new Functor[Option] {
     override def map[A, B](fa: Option[A])(f: A => B): Option[B] =
-      for {
-        a <- fa
-      } yield f(a)
+      fa match {
+        case Some(value) => Some(f(value))
+        case _ => None
+      }
   }
 
   /** Ex 3.1 how about Functor for List (do not use fa.map(f))
    */
   val listFunctor: Functor[List] = new Functor[List] {
     override def map[A, B](fa: List[A])(f: A => B): List[B] =
-      for {
-        a <- fa
-      } yield f(a)
+      fa match {
+        case Nil => Nil
+        case head :: tail => f(head) :: map(tail)(f)
+      }
   }
 
   def identity[A](a: A): A = a

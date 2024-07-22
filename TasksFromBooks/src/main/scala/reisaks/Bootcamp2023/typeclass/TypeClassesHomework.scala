@@ -220,7 +220,10 @@ object TypeClassesHomework extends App {
           case _ => None
         }
 
-      override def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa.map(f)
+      override def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa match {
+        case Some(value) => Some(f(value))
+        case _ => None
+      }
 
       override def map2[A, B, Z](fa: Option[A], fb: Option[B])(f: (A, B) => Z): Option[Z] = fa.flatMap(a => fb.map(b => f(a, b)))
 
