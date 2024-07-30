@@ -35,28 +35,20 @@ object EffectsHomework1 {
     def *>[B](another: IO[B]): IO[B]                                        = this.flatMap(_ => another)
     def as[B](newValue: => B): IO[B]                                        = this.map(_ => newValue)
     def void: IO[Unit]                                                      = this.map(_ => unit)
-    def attempt: IO[Either[Throwable, A]]                                   =
-      IO(try Right(run())
-      catch { case t: Throwable => Left(t) }
-    )
-    def option: IO[Option[A]]                                               = IO(
-      try Some(run())
-      catch { case _: Throwable => None }
-    )
-    def handleErrorWith[AA >: A](f: Throwable => IO[AA]): IO[AA]            = IO(
-      try run()
-      catch { case t: Throwable => f(t).run() }
-    )
-    def redeem[B](recover: Throwable => B, map: A => B): IO[B]              =
-      IO(
-        try map(run())
-        catch { case t: Throwable => recover(t) }
-      )
-    def redeemWith[B](recover: Throwable => IO[B], bind: A => IO[B]): IO[B] =
-      IO(
-        try bind(run()).run()
-        catch { case t: Throwable => recover(t).run() }
-      )
+    def attempt: IO[Either[Throwable, A]]                                   = IO(Try(run()).toEither)
+    def option: IO[Option[A]]                                               = IO(Try(run()).toOption)
+    def handleErrorWith[AA >: A](f: Throwable => IO[AA]): IO[AA]            = Try(run()).toEither match {
+      case Left(error) => f(error)
+      case Right(value) => IO(value)
+    }
+    def redeem[B](recover: Throwable => B, map: A => B): IO[B]              = Try(run()).toEither match {
+      case Left(error) => IO(recover(error))
+      case Right(value) => IO(map(value))
+    }
+    def redeemWith[B](recover: Throwable => IO[B], bind: A => IO[B]): IO[B] = Try(run()).toEither match {
+      case Left(error) => recover(error)
+      case Right(value) => bind(value)
+    }
     def unsafeRunSync(): A                                                  = run()
     def unsafeToFuture(): Future[A]                                         = {
       val promise = Promise[A]()
@@ -72,30 +64,30 @@ object EffectsHomework1 {
 
   object IO {
     def apply[A](body: => A): IO[A]                                   = new IO(() => body)
-    def suspend[A](thunk: => IO[A]): IO[A]                            = new IO(thunk.run)
-    def delay[A](body: => A): IO[A]                                   = new IO(() => body)
+    def suspend[A](thunk: => IO[A]): IO[A]                            = apply(thunk.run())
+    def delay[A](body: => A): IO[A]                                   = apply(body)
     def pure[A](a: A): IO[A]                                          = IO(a)
     def fromEither[A](e: Either[Throwable, A]): IO[A]                 =
       e match {
         case Right(value) => IO(value)
-        case Left(value) => IO.raiseError(value)
+        case Left(value) => raiseError(value)
       }
     def fromOption[A](option: Option[A])(orElse: => Throwable): IO[A] =
       option match {
         case Some(value) => IO(value)
-        case _ => IO.raiseError(orElse)
+        case _ => raiseError(orElse)
       }
     def fromTry[A](t: Try[A]): IO[A]                                  =
       t match {
         case Success(value) => IO(value)
-        case Failure(exception) => IO.raiseError(exception)
+        case Failure(exception) => raiseError(exception)
       }
-    def none[A]: IO[Option[A]]                                        = IO.pure(None)
+    def none[A]: IO[Option[A]]                                        = pure(None)
     def raiseError[A](e: Throwable): IO[A]                            = IO(throw e)
     def raiseUnless(cond: Boolean)(e: => Throwable): IO[Unit]         = if (!cond) raiseError(e) else IO(unit)
     def raiseWhen(cond: Boolean)(e: => Throwable): IO[Unit]           = if (cond) raiseError(e) else IO(unit)
     def unlessA(cond: Boolean)(action: => IO[Unit]): IO[Unit]         = if (cond) IO(unit) else action
     def whenA(cond: Boolean)(action: => IO[Unit]): IO[Unit]           = if (!cond) IO(unit) else action
-    def unit: IO[Unit]                                                = IO.pure(())
+    def unit: IO[Unit]                                                = pure(())
   }
 }
