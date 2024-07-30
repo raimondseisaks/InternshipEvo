@@ -1,3 +1,5 @@
+package Bootcamp2023
+
 import org.scalatest.funsuite.AnyFunSuite
 
 import java.io.File
@@ -9,11 +11,11 @@ class PokerHandEvaluatorTest extends AnyFunSuite {
   test("Check if two files have the same content line by line with input02") {
 
     val command = Seq("scala", "reisaks.PokerHandEvaluator.Main")
-    val inputFile = new File("src/test/scala/PokerHandEvaluatorTest/testSrc/input02.txt")
+    val inputFile = new File("src/test/scala/Bootcamp2023.PokerHandEvaluatorTest/testSrc/input02.txt")
     Process(command).#<(inputFile).!!
 
-    val file1 = new File("src/test/scala/PokerHandEvaluatorTest/testSrc/output.txt")
-    val file2 = new File("src/test/scala/PokerHandEvaluatorTest/testSrc/output02.txt")
+    val file1 = new File("src/test/scala/Bootcamp2023.PokerHandEvaluatorTest/testSrc/output.txt")
+    val file2 = new File("src/test/scala/Bootcamp2023.PokerHandEvaluatorTest/testSrc/output02.txt")
 
     val lines1 = readLinesFromFile(file1)
     val lines2 = readLinesFromFile(file2)
@@ -30,11 +32,11 @@ class PokerHandEvaluatorTest extends AnyFunSuite {
   test("Check if two files have the same content line by line with input01") {
 
     val command = Seq("scala", "reisaks.PokerHandEvaluator.Main")
-    val inputFile = new File("src/test/scala/PokerHandEvaluatorTest/testSrc/input01.txt")
+    val inputFile = new File("src/test/scala/Bootcamp2023.PokerHandEvaluatorTest/testSrc/input01.txt")
     Process(command).#<(inputFile).!!
 
-    val file1 = new File("src/test/scala/PokerHandEvaluatorTest/testSrc/output.txt")
-    val file2 = new File("src/test/scala/PokerHandEvaluatorTest/testSrc/output01.txt")
+    val file1 = new File("src/test/scala/Bootcamp2023.PokerHandEvaluatorTest/testSrc/output.txt")
+    val file2 = new File("src/test/scala/Bootcamp2023.PokerHandEvaluatorTest/testSrc/output01.txt")
 
     val lines1 = readLinesFromFile(file1)
     val lines2 = readLinesFromFile(file2)
