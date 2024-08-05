@@ -1,5 +1,6 @@
 package reisaks.Bootcamp2023.iotf_practise
 
+import cats.effect.ExitCode.Success
 import cats.{Monad, Show}
 import cats.effect.std.Console
 import cats.syntax.all._
@@ -92,8 +93,8 @@ object ex4 {
   }
 
   implicit def eitherHandle: Handle[Either[Throwable, *], Throwable] = new Handle[Either[Throwable, *], Throwable] {
-    def handle[A](fa: Either[Throwable, A]): Either[Throwable, Either[Throwable, A]] = Right(fa)
-  }
+    def handle[A](fa: Either[Throwable, A]): Either[Throwable, Either[Throwable, A]] = fa.map(Right(_))
+    }
 
   implicit def eitherRaise: Raise[Either[Throwable, *], ApiError] = new Raise[Either[Throwable, *], ApiError] {
     def raise(error: ApiError): Either[Throwable, Unit] = Left(error)
@@ -102,16 +103,17 @@ object ex4 {
 
   implicit val eitherConsole: Console[Either[Throwable, *]] = new Console[Either[Throwable, *]] {
     override def readLineWithCharset(charset: java.nio.charset.Charset): Either[Throwable, String] =
-      Right(scala.io.StdIn.readLine())
+      Try(scala.io.StdIn.readLine()).toEither
 
     override def readLine: Either[Throwable, String] =
-      Right(scala.io.StdIn.readLine())
+      Try(scala.io.StdIn.readLine()).toEither
+
 
     override def print[A](a: A)(implicit S: Show[A]): Either[Throwable, Unit] =
-      Right(Predef.print(S.show(a)))
+      Try(Predef.print(S.show(a))).toEither
 
     override def println[A](a: A)(implicit S: Show[A]): Either[Throwable, Unit] =
-      Right(Predef.println(S.show(a)))
+      Try(Predef.println(S.show(a))).toEither
 
     override def error[A](a: A)(implicit S: Show[A]): Either[Throwable, Unit] =
       Try(System.err.print(S.show(a))) match {

@@ -2,7 +2,7 @@ package reisaks.Bootcamp2023.cats_effects
 
 import reisaks.Bootcamp2023.cats_effects.EffectsHomework1.IO.unit
 
-import scala.concurrent.{Future, Promise}
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 /*
@@ -37,27 +37,21 @@ object EffectsHomework1 {
     def void: IO[Unit]                                                      = this.map(_ => unit)
     def attempt: IO[Either[Throwable, A]]                                   = IO(Try(run()).toEither)
     def option: IO[Option[A]]                                               = IO(Try(run()).toOption)
-    def handleErrorWith[AA >: A](f: Throwable => IO[AA]): IO[AA]            = Try(run()).toEither match {
-      case Left(error) => f(error)
-      case Right(value) => IO(value)
+    def handleErrorWith[AA >: A](f: Throwable => IO[AA]): IO[AA]            = Try(run()) match {
+      case Failure(error) => f(error)
+      case Success(value) => IO(value)
     }
-    def redeem[B](recover: Throwable => B, map: A => B): IO[B]              = Try(run()).toEither match {
-      case Left(error) => IO(recover(error))
-      case Right(value) => IO(map(value))
+    def redeem[B](recover: Throwable => B, map: A => B): IO[B]              = Try(run()) match {
+      case Failure(error) => IO(recover(error))
+      case Success(value) => IO(map(value))
     }
-    def redeemWith[B](recover: Throwable => IO[B], bind: A => IO[B]): IO[B] = Try(run()).toEither match {
-      case Left(error) => recover(error)
-      case Right(value) => bind(value)
+    def redeemWith[B](recover: Throwable => IO[B], bind: A => IO[B]): IO[B] = Try(run()) match {
+      case Failure(error) => recover(error)
+      case Success(value) => bind(value)
     }
     def unsafeRunSync(): A                                                  = run()
-    def unsafeToFuture(): Future[A]                                         = {
-      val promise = Promise[A]()
-      try {
-        promise.success(run())
-      } catch {
-        case t: Throwable => promise.failure(t)
-      }
-      promise.future
+    def unsafeToFuture()(implicit ec: ExecutionContext): Future[A]                                         = {
+      Future(run())
     }
   }
 
