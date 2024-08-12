@@ -14,5 +14,5 @@ case class Table(TABLE_ID: ID, playerBets: Map[Player, Bet]) {
 }
 
 object Table {
-  def create: Table = Table(new ID, Map.empty)
+  def create: Table = Table(new ID, Map.empty)  ///????
 }
