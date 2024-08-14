@@ -1,23 +1,23 @@
 package reisaks.FinalProject.domainModels
 
-case class Player(PLAYER_ID: String)
+case class Player(playerId: String)
 
-object OnlinePlayerManager {
+object onlinePlayerManager {
   private var existingPlayerIds: Set[String] = Set()           //State of online player's ids
 
   def createPlayer(id: String): Either[GameError, Player] = {
-    if (existingPlayerIds.contains(id) && id.isEmpty) {
+    if (existingPlayerIds.contains(id) || id.isEmpty) {
       Left(ExistingID)
     }
     else {
       val newPlayer = Player(id)
-      existingPlayerIds += newPlayer.PLAYER_ID
+      existingPlayerIds += newPlayer.playerId
       Right(newPlayer)
     }
   }
 
   def removePlayer(player: Player): Unit = {
-      existingPlayerIds -= player.PLAYER_ID
+      existingPlayerIds -= player.playerId
     }
   }
 

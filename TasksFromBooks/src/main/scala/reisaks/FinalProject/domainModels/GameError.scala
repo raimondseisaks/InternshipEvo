@@ -29,3 +29,8 @@ case object ExistingBetCode extends GameError {
   override def message: String = "Bet with this code already exists"
   override def errorId: String = "BET04"
 }
+
+case object betRoundEnd extends GameError {
+  override def message: String = "You cant add bet, when game round is finished"
+  override def errorId: String = "BET05"
+}
