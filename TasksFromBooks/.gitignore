@@ -6,6 +6,8 @@ target
 metals.sbt
 .vscode
 
+src/test/scala/PokerHandEvaluatorTest/
+
 # Helm charts
 charts/Chart.lock
 charts/*/Chart.lock
