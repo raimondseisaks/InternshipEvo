@@ -1,4 +1,5 @@
 package reisaks.FinalProject.serverSide.GameLogic
+
 import cats.effect.{IO, IOApp}
 import reisaks.FinalProject.serverSide.AkkaActors.tableActorRef._
 import reisaks.FinalProject.serverSide.AkkaActors.tableActorMessages._
@@ -12,7 +13,7 @@ object SpinningWheel extends IOApp.Simple {
     Random.nextInt(101)
   }
 
-  def program(): IO[Unit] = {
+  private def program(): IO[Unit] = {
     def loop: IO[Unit] = for {
       _ <- IO(tableActor ! BetsStart)
       _ <- IO.sleep(5.seconds)
@@ -23,16 +24,15 @@ object SpinningWheel extends IOApp.Simple {
       number <- generateRandomNumber()
       _ <- IO(tableActor ! GameResult(number))
       _ <- IO.sleep(3.seconds)
+      _ <- IO(tableActor ! GameEnd)
       _ <- loop
     } yield ()
     loop
   }
 
-  override def run: IO[Unit] = {
-    for {
-      _ <- program()
-    } yield ()
-  }
+  override def run: IO[Unit] = program()
 }
+
+
 
 

@@ -3,7 +3,6 @@ package reisaks.FinalProject.domainModels
 case class Table(tableId: Id, playerBets: Map[Player, List[Bet]])  {
 
   def addPlayerBet(player: Player, bet: Bet): Either[GameError, Table] = {
-    println(playerBets.map(w=> w._2))
     playerBets.get(player) match {
 
       case Some(existingBets) if existingBets.exists(_.betCode == bet.betCode) =>
@@ -18,7 +17,7 @@ case class Table(tableId: Id, playerBets: Map[Player, List[Bet]])  {
   }
 
 
-  def cleanTable(): Unit = {
+  def cleanTable(): Table = {
     copy(playerBets = playerBets.empty)
   }
 }

@@ -15,7 +15,7 @@ object betEvaluationService {
       case _ => None
     }
 
-  def winningCoefficient(amount: BigDecimal, winNum: Int): BigDecimal = {
+  private def winningCoefficient(amount: BigDecimal, winNum: Int): BigDecimal = {
     if (winNum == 100) amount * 50
     else if (winNum % 2 == 0) amount * 3
     else amount * 2
