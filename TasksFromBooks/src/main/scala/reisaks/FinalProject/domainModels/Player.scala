@@ -1,23 +1,41 @@
 package reisaks.FinalProject.domainModels
+import akka.actor.{ActorRef, ActorSystem, PoisonPill}
+import cats.effect.{IO, Ref}
+import reisaks.FinalProject.serverSide.AkkaActors.PlayerActor
 
-case class Player(PLAYER_ID: String)
 
-object OnlinePlayerManager {
-  private var existingPlayerIds: Set[String] = Set()           //State of online player's ids
+case class Player(playerId: String, actorRef: ActorRef)
 
-  def createPlayer(id: String): Either[GameError, Player] = {
-    if (existingPlayerIds.contains(id) && id.isEmpty) {
-      Left(ExistingID)
-    }
-    else {
-      val newPlayer = Player(id)
-      existingPlayerIds += newPlayer.PLAYER_ID
-      Right(newPlayer)
+trait OnlinePLayerManagerTrait {
+  val playerIdsRef: IO[Ref[IO, Set[String]]] = Ref.of[IO, Set[String]](Set.empty)
+  def createPlayer(id: String): IO[Either[GameError, Player]]
+  def removePlayer(player: Player): IO[Unit]
+}
+
+class OnlinePlayerManager(system: ActorSystem, ref: Ref[IO, Set[String]]) extends OnlinePLayerManagerTrait {
+
+  override def createPlayer(id: String): IO[Either[GameError, Player]] = {
+    ref.modify { existingPlayerIds =>
+      if (existingPlayerIds.contains(id) || id.isEmpty) {
+        (existingPlayerIds, Left(ExistingID))
+      } else {
+        val newActor = system.actorOf(PlayerActor.props(id), s"playerActor-$id")
+        val newPlayer = Player(id, newActor)
+        val updatedIds = existingPlayerIds + newPlayer.playerId
+        (updatedIds, Right(newPlayer))
+      }
     }
   }
 
-  def removePlayer(player: Player): Unit = {
-      existingPlayerIds -= player.PLAYER_ID
-    }
+  override def removePlayer(player: Player): IO[Unit] = {
+    IO {
+      player.actorRef ! PoisonPill
+    } >> ref.update(existingPlayerIds => existingPlayerIds - player.playerId)
   }
+}
+
+
+
+
+
 

@@ -86,6 +86,7 @@ scalacOptions ++= Seq(
   "-Ymacro-annotations",
 )
 addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.3" cross CrossVersion.full)
+mainClass in Compile := Some("reisaks.FinalProject.clientSide.WebSocketClient")
 
 
 

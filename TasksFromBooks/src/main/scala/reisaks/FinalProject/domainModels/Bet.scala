@@ -1,7 +1,7 @@
 package reisaks.FinalProject.domainModels
 import scala.util.Try
 
-case class Bet(BET_ID: ID, BET_Code: Int, AMOUNT: BigDecimal)
+case class Bet(betId: Id, betCode: Int, amount: BigDecimal)
 
 object Bet {
 
@@ -11,7 +11,7 @@ object Bet {
       amount      <- parseAmount(amount)
       validAmount <- validateAmount(amount)
       validCode   <- validateCode(code)
-    } yield Bet(new ID, validCode, validAmount)
+    } yield Bet(new Id, validCode, validAmount)
   }
 
   private def parseCode(betCode: String): Either[GameError, Int] =
