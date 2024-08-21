@@ -1,24 +1,23 @@
-package reisaks.FinalProject.serverSide.AkkaActors
+package reisaks.FinalProject.ServerSide.AkkaActors
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
-import akka.http.scaladsl.model.ws.TextMessage
 import cats.effect.unsafe.implicits.global
-import reisaks.FinalProject.domainModels.{Bet, Player, Table}
-import reisaks.FinalProject.domainModels._
-import reisaks.FinalProject.serverSide.AkkaActors.PlayerActorMessages._
-import reisaks.FinalProject.serverSide.GameLogic.betEvaluationService._
-import reisaks.FinalProject.serverSide.GameLogic._
+import reisaks.FinalProject.DomainModels.{Bet, Player, Table}
+import reisaks.FinalProject.DomainModels._
+import reisaks.FinalProject.ServerSide.AkkaActors.PlayerActorMessages._
+import reisaks.FinalProject.ServerSide.GameLogic.BetEvaluationService._
+import reisaks.FinalProject.ServerSide.GameLogic._
 
-sealed trait gameState
-case object betsStart extends gameState
-case object betsEnd extends gameState
-case object gameStart extends gameState
-case object gameResults extends gameState
-case object sessionEnd extends gameState
+sealed trait GameState
+case object BetsStartState extends GameState
+case object BetsEndState extends GameState
+case object GameStartState extends GameState
+case object GameResultsState extends GameState
+case object SessionEndState extends GameState
 
-class tableActor extends Actor {
+class TableActor extends Actor {
   import tableActorMessages._
 
-  var roundState: gameState = betsStart   //Maybe it good idea to create state object
+  var roundState: GameState = BetsStartState   //Maybe it good idea to create state object
   var table: Table = Table.create
   var playingPlayers: Set[Player] = Set()
 
@@ -38,11 +37,11 @@ class tableActor extends Actor {
       playingPlayers.foreach {
         player => player.actorRef ! MessageToPlayer("Round started. Place your bets!")
       }
-      roundState = betsStart
+      roundState = BetsStartState
 
-    case addBetToTable(player, bet) =>
+    case AddBetToTable(player, bet) =>
       if (playingPlayers.contains(player)) {
-        if (roundState == betsStart)
+        if (roundState == BetsStartState)
             table.addPlayerBet(player, bet) match {
               case Right(value) =>
                 table = value
@@ -59,13 +58,13 @@ class tableActor extends Actor {
       playingPlayers.foreach {
         player => player.actorRef ! MessageToPlayer("Betting has ended")
       }
-      roundState = betsEnd
+      roundState = BetsEndState
 
     case GameStart =>
       playingPlayers.foreach {
         player => player.actorRef ! MessageToPlayer("Game is started! Wheel is spinning.......")
       }
-      roundState = gameStart
+      roundState = GameStartState
 
     case GameResult(winningNumber) =>
       playingPlayers.foreach { w =>
@@ -75,14 +74,14 @@ class tableActor extends Actor {
           case None => w.actorRef ! MessageToPlayer(s"Winning number $winningNumber!")
         }
       }
-      roundState = gameResults
+      roundState = GameResultsState
       table = table.cleanTable()
 
     case GameEnd =>
       playingPlayers.foreach {
         player => player.actorRef ! MessageToPlayer("Round has ended")
       }
-      roundState = sessionEnd
+      roundState = SessionEndState
 
     case LeaveTable(player) =>
       if (playingPlayers.contains(player)) {
@@ -96,20 +95,20 @@ class tableActor extends Actor {
 }
 
 
-object tableActorMessages {
+object TableActorMessages {
   case object BetsStart
   case object BetsEnd
   case object GameStart
   case class GameResult(winningNumber: Int)
   case object GameEnd
-  case class addBetToTable(player: Player, bet: Bet)
+  case class AddBetToTable(player: Player, bet: Bet)
   case class JoinTable(player: Player)
   case class LeaveTable(player: Player)
 }
 
-object tableActorRef {
+object TableActorRef {
   val system: ActorSystem = ActorSystem("MyActorSystem")
-  val tableActor: ActorRef = system.actorOf(Props[tableActor], "tableActor")
+  val tableActor: ActorRef = system.actorOf(Props[TableActor], "tableActor")
 }
 
 

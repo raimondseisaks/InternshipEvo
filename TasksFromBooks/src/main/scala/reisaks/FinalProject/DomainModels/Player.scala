@@ -1,7 +1,7 @@
-package reisaks.FinalProject.domainModels
+package reisaks.FinalProject.DomainModels
 import akka.actor.{ActorRef, ActorSystem, PoisonPill}
 import cats.effect.{IO, Ref}
-import reisaks.FinalProject.serverSide.AkkaActors.PlayerActor
+import reisaks.FinalProject.ServerSide.AkkaActors.PlayerActor
 
 
 case class Player(playerId: String, actorRef: ActorRef)

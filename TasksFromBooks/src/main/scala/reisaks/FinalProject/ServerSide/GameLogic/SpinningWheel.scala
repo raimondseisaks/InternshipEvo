@@ -1,8 +1,8 @@
-package reisaks.FinalProject.serverSide.GameLogic
+package reisaks.FinalProject.ServerSide.GameLogic
 
 import cats.effect.{IO, IOApp}
-import reisaks.FinalProject.serverSide.AkkaActors.tableActorRef._
-import reisaks.FinalProject.serverSide.AkkaActors.tableActorMessages._
+import reisaks.FinalProject.ServerSide.AkkaActors.TableActorRef._
+import reisaks.FinalProject.ServerSide.AkkaActors.TableActorMessages._
 
 import scala.concurrent.duration._
 import scala.util.Random

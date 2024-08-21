@@ -1,4 +1,4 @@
-package reisaks.FinalProject.clientSide
+package reisaks.FinalProject.ClientSide
 
 import akka.Done
 import akka.actor.ActorSystem

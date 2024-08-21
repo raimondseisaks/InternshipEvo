@@ -1,4 +1,4 @@
-package reisaks.FinalProject.serverSide.WebSocket
+package reisaks.FinalProject.ServerSide.WebSocket
 import akka.NotUsed
 import akka.http.scaladsl.model.StatusCodes
 import akka.actor.ActorSystem
@@ -11,14 +11,14 @@ import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Flow
 import cats.effect.{IO, IOApp, Ref}
 import cats.effect.unsafe.implicits.global
-import reisaks.FinalProject.domainModels._
+import reisaks.FinalProject.DomainModels._
 import scala.io.StdIn
-import reisaks.FinalProject.serverSide.AkkaActors.tableActorRef.tableActor
-import reisaks.FinalProject.serverSide.AkkaActors.tableActorMessages._
+import reisaks.FinalProject.ServerSide.AkkaActors.TableActorRef.tableActor
+import reisaks.FinalProject.ServerSide.AkkaActors.TableActorMessages._
 import akka.actor.ActorRef
 import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Sink, Source}
-import reisaks.FinalProject.serverSide.AkkaActors.PlayerActorMessages._
+import reisaks.FinalProject.ServerSide.AkkaActors.PlayerActorMessages._
 
 
 object WebSocketServer extends IOApp.Simple {
@@ -81,7 +81,7 @@ object WebSocketServer extends IOApp.Simple {
           case Array("Add-Bet", betCode, amount) =>
             Bet.create(betCode, amount) match {
               case Right(bet) =>
-                tableActor ? addBetToTable(player, bet)
+                tableActor ? AddBetToTable(player, bet)
               case Left(error) => player.actorRef ? MessageToPlayer(error.message)
             }
           case Array("Exit-Server") =>

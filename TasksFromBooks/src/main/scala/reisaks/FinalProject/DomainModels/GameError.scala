@@ -1,4 +1,4 @@
-package reisaks.FinalProject.domainModels
+package reisaks.FinalProject.DomainModels
 
 sealed trait GameError {
  def message: String

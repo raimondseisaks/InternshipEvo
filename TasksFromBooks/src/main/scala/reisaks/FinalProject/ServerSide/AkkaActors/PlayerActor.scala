@@ -1,4 +1,4 @@
-package reisaks.FinalProject.serverSide.AkkaActors
+package reisaks.FinalProject.ServerSide.AkkaActors
 import akka.actor.{Actor, ActorRef, Props}
 import akka.http.scaladsl.model.ws.TextMessage
 

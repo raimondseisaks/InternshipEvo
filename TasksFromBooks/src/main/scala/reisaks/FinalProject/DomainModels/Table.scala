@@ -1,4 +1,4 @@
-package reisaks.FinalProject.domainModels
+package reisaks.FinalProject.DomainModels
 
 case class Table(tableId: Id, playerBets: Map[Player, List[Bet]])  {
 

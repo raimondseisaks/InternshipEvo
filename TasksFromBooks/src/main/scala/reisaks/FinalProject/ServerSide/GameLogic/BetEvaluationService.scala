@@ -1,8 +1,8 @@
-package reisaks.FinalProject.serverSide.GameLogic
+package reisaks.FinalProject.ServerSide.GameLogic
 
-import reisaks.FinalProject.domainModels.{Table, Player}
+import reisaks.FinalProject.DomainModels.{Table, Player}
 
-object betEvaluationService {
+object BetEvaluationService {
   def evaluateSum(player: Player, table: Table, winningNum: Int): Option[BigDecimal] =
     table.playerBets.get(player) match {
       case Some(bets) =>
