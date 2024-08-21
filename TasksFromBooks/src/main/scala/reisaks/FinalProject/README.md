@@ -35,7 +35,7 @@ Sub-tasks of spinning wheel game implementation
 
 How to launch and use spinning wheel game
 1. Launch WebSocketServer
-2. To connect to server from CLI use sbt "runMain reisaks.FinalProject.clientSide.WebSocketClient ws://localhost:8080 <non-empty-unique-playerId>"
+2. To connect to server from CLI use sbt "runMain reisaks.FinalProject.ClientSide.WebSocketClient ws://localhost:8080 <non-empty-unique-playerId>"
 
 
 
