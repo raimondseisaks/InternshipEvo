@@ -6,7 +6,7 @@ import akka.http.scaladsl.model.ws.TextMessage
 class PlayerActor(playerId: String) extends Actor {
   import PlayerActorMessages._
 
-  //Register WebSocketRef (for sending individual messages)
+  //Register WebSocketRef (for sending individual messages)//
   def initWebRef: Receive = {
     case RegisterWebSocket(ref) =>
       context.become(regWebRef(ref))

@@ -30,7 +30,27 @@ case object ExistingBetCode extends GameError {
   override def errorId: String = "BET04"
 }
 
-case object betRoundEnd extends GameError {
+case object BetRoundEnd extends GameError {
   override def message: String = "You cant add bet, when game round is finished"
   override def errorId: String = "BET05"
+}
+
+case object AlreadyJoinedToTable extends GameError {
+  override def message: String = "You already joined to the table"
+  override def errorId: String = "TAB01"
+}
+
+case object TableNotExist extends GameError {
+  override def message: String = "This table does not exist"
+  override def errorId: String = "TAB02"
+}
+
+case object JoinToTheTable extends GameError {
+  override def message: String = "Please join to the table and the you can make bets"
+  override def errorId: String = "TAB03"
+}
+
+case object TooMuchPlayers extends GameError {
+  override def message: String = "Too much players on this table"
+  override def errorId: String = "TAB03"
 }

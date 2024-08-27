@@ -1,8 +1,8 @@
 package reisaks.FinalProject.DomainModels
 
-case class Table(tableId: Id, playerBets: Map[Player, List[Bet]])  {
+case class TableOfBets(tableId: Id, playerBets: Map[Player, List[Bet]])  {
 
-  def addPlayerBet(player: Player, bet: Bet): Either[GameError, Table] = {
+  def addPlayerBet(player: Player, bet: Bet): Either[GameError, TableOfBets] = {
     playerBets.get(player) match {
 
       case Some(existingBets) if existingBets.exists(_.betCode == bet.betCode) =>
@@ -17,11 +17,11 @@ case class Table(tableId: Id, playerBets: Map[Player, List[Bet]])  {
   }
 
 
-  def cleanTable(): Table = {
+  def cleanTable(): TableOfBets = {
     copy(playerBets = playerBets.empty)
   }
 }
 
-object Table {
-  def create: Table = Table(new Id, Map.empty)
+object TableOfBets {
+  def create: TableOfBets = TableOfBets(new Id, Map.empty)
 }

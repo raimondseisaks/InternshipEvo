@@ -1,11 +1,13 @@
 package reisaks.FinalProject.ServerSide.AkkaActors
-import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, Props}
 import cats.effect.unsafe.implicits.global
-import reisaks.FinalProject.DomainModels.{Bet, Player, Table}
+import reisaks.FinalProject.DomainModels.{Bet, Player, TableOfBets}
 import reisaks.FinalProject.DomainModels._
 import reisaks.FinalProject.ServerSide.AkkaActors.PlayerActorMessages._
 import reisaks.FinalProject.ServerSide.GameLogic.BetEvaluationService._
-import reisaks.FinalProject.ServerSide.GameLogic._
+import reisaks.FinalProject.DomainModels.OnlinePLayerManagerTrait
+import reisaks.FinalProject.ServerSide.GameLogic.SpinningWheel
+import reisaks.FinalProject.DomainModels.SystemMessages._
 
 sealed trait GameState
 case object BetsStartState extends GameState
@@ -15,40 +17,43 @@ case object GameResultsState extends GameState
 case object SessionEndState extends GameState
 
 class TableActor extends Actor {
-  import tableActorMessages._
+  import TableActorMessages._
+  SpinningWheel.program(self).unsafeToFuture()
 
-  var roundState: GameState = BetsStartState   //Maybe it good idea to create state object
-  var table: Table = Table.create
+  var roundState: GameState = BetsStartState
+  var tableOfBets: TableOfBets = TableOfBets.create
   var playingPlayers: Set[Player] = Set()
 
-  SpinningWheel.run.unsafeToFuture() //Start Game service (it will works till server works)
-
   def receive: Receive = {
-    case JoinTable(player) =>
+    case JoinTable(player, playerManager, actorRef) =>
       if (playingPlayers.contains(player)) {
-        player.actorRef ! MessageToPlayer("You already joined to the table")
+        player.actorRef ! MessageToPlayer(AlreadyJoinedToTable.message)
+      }
+      else if (playingPlayers.size >= 10) {
+        player.actorRef ! MessageToPlayer(TooMuchPlayers.message)
       }
       else {
         playingPlayers += player
-        player.actorRef ! MessageToPlayer(s"You joined the table")
+        playerManager.addToTable(player, actorRef).unsafeToFuture()
+        player.actorRef ! MessageToPlayer(SuccessfullyJoinedToTable.message)
       }
 
     case BetsStart =>
       playingPlayers.foreach {
-        player => player.actorRef ! MessageToPlayer("Round started. Place your bets!")
+        player => player.actorRef ! MessageToPlayer(RoundStarted.message)
       }
       roundState = BetsStartState
 
     case AddBetToTable(player, bet) =>
       if (playingPlayers.contains(player)) {
         if (roundState == BetsStartState)
-            table.addPlayerBet(player, bet) match {
+            tableOfBets.addPlayerBet(player, bet) match {
               case Right(value) =>
-                table = value
+                tableOfBets = value
                 player.actorRef ! MessageToPlayer(s"You bet on ${bet.betCode} with amount ${bet.amount}")
               case Left(error) => player.actorRef ! MessageToPlayer(error.message)
             }
-        else player.actorRef ! MessageToPlayer(betRoundEnd.message)
+        else player.actorRef ! MessageToPlayer(BetRoundEnd.message)
         }
       else {
         player.actorRef ! MessageToPlayer("Please join the table!")
@@ -56,26 +61,26 @@ class TableActor extends Actor {
 
     case BetsEnd =>
       playingPlayers.foreach {
-        player => player.actorRef ! MessageToPlayer("Betting has ended")
+        player => player.actorRef ! MessageToPlayer(BetHasEnded.message)
       }
       roundState = BetsEndState
 
     case GameStart =>
       playingPlayers.foreach {
-        player => player.actorRef ! MessageToPlayer("Game is started! Wheel is spinning.......")
+        player => player.actorRef ! MessageToPlayer(GameIsStarted.message)
       }
       roundState = GameStartState
 
     case GameResult(winningNumber) =>
       playingPlayers.foreach { w =>
-        val sum = evaluateSum(w, table, winningNumber)
+        val sum = evaluateSum(w, tableOfBets, winningNumber)
         sum match {
           case Some(value) => w.actorRef ! MessageToPlayer(s"Winning number $winningNumber! You won $value")
           case None => w.actorRef ! MessageToPlayer(s"Winning number $winningNumber!")
         }
       }
       roundState = GameResultsState
-      table = table.cleanTable()
+      tableOfBets = tableOfBets.cleanTable()
 
     case GameEnd =>
       playingPlayers.foreach {
@@ -91,9 +96,11 @@ class TableActor extends Actor {
       else {
         player.actorRef ! MessageToPlayer("You can't leave the table without logging in")
       }
+
+    case AvailablePlaces =>
+      sender() ! (10 - playingPlayers.size)
   }
 }
-
 
 object TableActorMessages {
   case object BetsStart
@@ -102,13 +109,14 @@ object TableActorMessages {
   case class GameResult(winningNumber: Int)
   case object GameEnd
   case class AddBetToTable(player: Player, bet: Bet)
-  case class JoinTable(player: Player)
+  case class JoinTable(player: Player, playerManager: OnlinePLayerManagerTrait, actorRef: ActorRef)
   case class LeaveTable(player: Player)
+  case object AvailablePlaces
+
 }
 
 object TableActorRef {
-  val system: ActorSystem = ActorSystem("MyActorSystem")
-  val tableActor: ActorRef = system.actorOf(Props[TableActor], "tableActor")
+  def tableProps: Props = Props(new TableActor)
 }
 
 
