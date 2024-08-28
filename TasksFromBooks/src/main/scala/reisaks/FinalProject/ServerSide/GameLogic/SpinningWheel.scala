@@ -3,7 +3,6 @@ package reisaks.FinalProject.ServerSide.GameLogic
 import akka.actor.ActorRef
 import cats.effect.IO
 import reisaks.FinalProject.ServerSide.AkkaActors.TableActorMessages._
-import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import scala.util.Random
 
@@ -25,7 +24,6 @@ object SpinningWheel {
       _ <- IO(tableRef ! GameResult(number))
       _ <- IO.sleep(3.seconds)
       _ <- IO(tableRef ! GameEnd)
-      _ <- loop
     } yield ()
     loop
   }

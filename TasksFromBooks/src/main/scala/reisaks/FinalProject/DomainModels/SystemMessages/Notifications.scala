@@ -11,7 +11,7 @@ case object RoundStarted extends Notifications {
 }
 
 case object SuccessfullyJoinedToTable extends Notifications {
-  override def message: String = "Round started. Place your bets!"
+  override def message: String = "You joined to the table!!"
   override def errorId: String = "NF02"
 }
 

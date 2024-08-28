@@ -18,7 +18,6 @@ case object SessionEndState extends GameState
 
 class TableActor extends Actor {
   import TableActorMessages._
-  SpinningWheel.program(self).unsafeToFuture()
 
   var roundState: GameState = BetsStartState
   var tableOfBets: TableOfBets = TableOfBets.create
@@ -33,6 +32,9 @@ class TableActor extends Actor {
         player.actorRef ! MessageToPlayer(TooMuchPlayers.message)
       }
       else {
+        if (playingPlayers.isEmpty) {
+          SpinningWheel.program(self).unsafeToFuture()
+        }
         playingPlayers += player
         playerManager.addToTable(player, actorRef).unsafeToFuture()
         player.actorRef ! MessageToPlayer(SuccessfullyJoinedToTable.message)
@@ -87,6 +89,9 @@ class TableActor extends Actor {
         player => player.actorRef ! MessageToPlayer("Round has ended")
       }
       roundState = SessionEndState
+      if (playingPlayers.nonEmpty) {
+        SpinningWheel.program(self).unsafeToFuture()
+      }
 
     case LeaveTable(player) =>
       if (playingPlayers.contains(player)) {
