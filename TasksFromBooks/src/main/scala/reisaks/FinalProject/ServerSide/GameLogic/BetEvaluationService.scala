@@ -9,7 +9,7 @@ object BetEvaluationService {
         val sum = bets.foldLeft(BigDecimal(0)) { (acc, w) =>
           if (winningNum == w.betCode)
             acc + winningCoefficient(w.amount, winningNum)
-          else acc
+          else acc - w.amount
         }
         Some(sum)
       case _ => None

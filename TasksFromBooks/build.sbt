@@ -6,14 +6,14 @@ val http4sVersion      = "0.23.18"
 val circeVersion       = "0.14.1"
 val playVersion        = "2.8.2"
 val doobieVersion      = "1.0.0-RC1"
-val catsVersion        = "2.9.0"
+val catsVersion        = "2.12.0"
 val catsTaglessVersion = "0.14.0"
 val catsEffect3Version = "3.3.0"
 val catsEffect2Version = "2.5.4"
 val epimetheusVersion  = "0.6.0-M2"
 val monixVersion       = "3.4.0"
 
-val akkaVersion          = "2.6.9"
+val akkaVersion          = "2.8.6"
 val akkaHttpVersion      = "10.1.11"
 val akkaHttpCirceVersion = "1.39.2"
 
@@ -88,5 +88,14 @@ scalacOptions ++= Seq(
 addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.3" cross CrossVersion.full)
 mainClass in Compile := Some("reisaks.FinalProject.clientSide.WebSocketClient")
 
+libraryDependencies ++= Seq(
+  "io.github.embeddedkafka" %% "embedded-kafka" % "3.6.0",
+  "org.apache.kafka" %% "kafka" % "3.7.0",
+  "org.apache.kafka" % "kafka-streams" % "3.7.0",
+  "org.apache.zookeeper" % "zookeeper" % "3.8.0",
+  "org.apache.kafka" % "kafka-streams-test-utils" % "3.7.0",
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "org.slf4j" % "slf4j-simple" % "2.0.13"
+)
 
 

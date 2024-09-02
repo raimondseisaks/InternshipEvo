@@ -17,6 +17,7 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Sink, Source}
 import reisaks.FinalProject.ServerSide.AkkaActors.PlayerActorMessages._
 import reisaks.FinalProject.DomainModels.TableManager._
+import reisaks.FinalProject.ServerSide.Kafka.{EmbeddedKafka, EventConsumer}
 
 import scala.util.Success
 
@@ -28,7 +29,10 @@ object WebSocketServer extends IOApp.Simple {
       system <- IO(ActorSystem("MyActorSystem"))
       playerIdsRef <- Ref.of[IO, Map[Player, Option[ActorRef]]](Map.empty)
       playerManager = new OnlinePlayerManager(system, playerIdsRef)
-      _ <- startServer(playerManager, system)
+      serverFiber <- startServer(playerManager, system).start
+      kafkaFiber <- EmbeddedKafka.run().start
+      _ <- serverFiber.join
+      _ <- kafkaFiber.join
     } yield ()
   }
 

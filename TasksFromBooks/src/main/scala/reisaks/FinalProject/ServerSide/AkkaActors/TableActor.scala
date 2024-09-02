@@ -1,6 +1,8 @@
 package reisaks.FinalProject.ServerSide.AkkaActors
 import akka.actor.{Actor, ActorRef, Props}
 import cats.effect.unsafe.implicits.global
+import io.circe.syntax.EncoderOps
+import org.apache.kafka.clients.producer.KafkaProducer
 import reisaks.FinalProject.DomainModels.{Bet, Player, TableOfBets}
 import reisaks.FinalProject.DomainModels._
 import reisaks.FinalProject.ServerSide.AkkaActors.PlayerActorMessages._
@@ -8,6 +10,10 @@ import reisaks.FinalProject.ServerSide.GameLogic.BetEvaluationService._
 import reisaks.FinalProject.DomainModels.OnlinePLayerManagerTrait
 import reisaks.FinalProject.ServerSide.GameLogic.SpinningWheel
 import reisaks.FinalProject.DomainModels.SystemMessages._
+import reisaks.FinalProject.ServerSide.Kafka.EventProducer
+import reisaks.FinalProject.ServerSide.Json._
+
+import scala.math.Numeric.BigDecimalAsIfIntegral.abs
 
 sealed trait GameState
 case object BetsStartState extends GameState
@@ -16,12 +22,22 @@ case object GameStartState extends GameState
 case object GameResultsState extends GameState
 case object SessionEndState extends GameState
 
-class TableActor extends Actor {
-  import TableActorMessages._
+sealed trait BetResult
+case class Won(amount: BigDecimal) extends BetResult
+case class Lose(amount: BigDecimal) extends BetResult
 
+object TableActorState {
+  val topicName = "Spinning-Wheel-Game-Round"
+  val producer: KafkaProducer[String, String] = EventProducer.initProducer
   var roundState: GameState = BetsStartState
   var tableOfBets: TableOfBets = TableOfBets.create
   var playingPlayers: Set[Player] = Set()
+  var roundId = new Id
+}
+
+class TableActor extends Actor {
+  import TableActorMessages._
+  import TableActorState._
 
   def receive: Receive = {
     case JoinTable(player, playerManager, actorRef) =>
@@ -45,6 +61,7 @@ class TableActor extends Actor {
         player => player.actorRef ! MessageToPlayer(RoundStarted.message)
       }
       roundState = BetsStartState
+      EventProducer.producerSend(producer, topicName, s"${self.path.name}", GameStarted(s"${self.path.name}", roundId.getStringId, s"$roundState").asJson.spaces4)
 
     case AddBetToTable(player, bet) =>
       if (playingPlayers.contains(player)) {
@@ -77,11 +94,29 @@ class TableActor extends Actor {
       playingPlayers.foreach { w =>
         val sum = evaluateSum(w, tableOfBets, winningNumber)
         sum match {
-          case Some(value) => w.actorRef ! MessageToPlayer(s"Winning number $winningNumber! You won $value")
+          case Some(value) =>
+            if (value > 0) w.actorRef ! MessageToPlayer(s"Winning number $winningNumber! You won $value euro")
+            else w.actorRef ! MessageToPlayer(s"Winning number $winningNumber! You lose ${abs(value)} euro")
           case None => w.actorRef ! MessageToPlayer(s"Winning number $winningNumber!")
         }
       }
+      val playerResults: Map[String, BetResult] = tableOfBets.playerBets.map { w =>
+        val result = evaluateSum(w._1, tableOfBets, winningNumber)
+        result match {
+          case Some(value) => if (value >= 0) w._1.playerId -> Won(value) else w._1.playerId -> Lose(value)
+        }
+      }
+
       roundState = GameResultsState
+      EventProducer.producerSend( producer,
+                                  topicName,
+                                  s"${self.path.name}",
+                                  GameEnded(s"${self.path.name}",
+                                    roundId.getStringId ,
+                                  s"$roundState",
+                                  playerResults)
+                                  .asJson.spaces4)
+      roundId = new Id
       tableOfBets = tableOfBets.cleanTable()
 
     case GameEnd =>
