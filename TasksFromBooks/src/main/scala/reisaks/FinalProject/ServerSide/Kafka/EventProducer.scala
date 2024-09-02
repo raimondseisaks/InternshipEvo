@@ -8,7 +8,7 @@ object EventProducer {
   def initProducer: KafkaProducer[String, String] = {
     val producerProperties = new Properties()
     producerProperties.setProperty(
-      ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092"
+      ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:6002"
     )
     producerProperties.setProperty(
       ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName

@@ -5,14 +5,14 @@ import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import java.util.Properties
 import org.apache.kafka.common.serialization.StringDeserializer
 
-import java.io.{File, FileWriter, PrintWriter}
+import java.io.{FileWriter, PrintWriter}
 
 
 
 object EventConsumer {
   def initConsumer: KafkaConsumer[String, String] = {
     val consumerProperties = new Properties()
-    consumerProperties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
+    consumerProperties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:6002")
     consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group1")
     consumerProperties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, classOf[StringDeserializer].getName)
     consumerProperties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, classOf[StringDeserializer].getName)
@@ -25,7 +25,7 @@ object EventConsumer {
     consumer.subscribe(java.util.Collections.singletonList(topicName))
     val writer = new PrintWriter(new FileWriter("src/main/scala/reisaks/FinalProject/ServerSide/Kafka/KafkaLog.txt", true))
     while (true) {
-      val records = consumer.poll(10L)
+      val records = consumer.poll(1000L)
       for (record <- records.asScala) {
         writer.println(record.value())
         writer.flush()
