@@ -1,10 +1,8 @@
 package reisaks.FinalProject.ServerSide.Kafka
 import scala.jdk.CollectionConverters._
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
-
 import java.util.Properties
 import org.apache.kafka.common.serialization.StringDeserializer
-
 import java.io.{FileWriter, PrintWriter}
 
 
@@ -23,15 +21,15 @@ object EventConsumer {
 
   def consumeMessages(consumer: KafkaConsumer[String, String], topicName: String): Unit = {
     consumer.subscribe(java.util.Collections.singletonList(topicName))
-    val writer = new PrintWriter(new FileWriter("src/main/scala/reisaks/FinalProject/ServerSide/Kafka/KafkaLog.txt", true))
     while (true) {
+      val writer = new PrintWriter(new FileWriter("src/main/scala/reisaks/FinalProject/ServerSide/Kafka/KafkaLog.txt", true))
       val records = consumer.poll(1000L)
       for (record <- records.asScala) {
         writer.println(record.value())
         writer.flush()
       }
+      writer.close()
     }
-    writer.close()
   }
   def startConsumer(): Unit = {
     val topicName = "Spinning-Wheel-Game-Round"

@@ -26,18 +26,15 @@ sealed trait BetResult
 case class Won(amount: BigDecimal) extends BetResult
 case class Lose(amount: BigDecimal) extends BetResult
 
-object TableActorState {
+class TableActor extends Actor {
+  import TableActorMessages._
+
   val topicName = "Spinning-Wheel-Game-Round"
   val producer: KafkaProducer[String, String] = EventProducer.initProducer
   var roundState: GameState = BetsStartState
   var tableOfBets: TableOfBets = TableOfBets.create
   var playingPlayers: Set[Player] = Set()
   var roundId = new Id
-}
-
-class TableActor extends Actor {
-  import TableActorMessages._
-  import TableActorState._
 
   def receive: Receive = {
     case JoinTable(player, playerManager, actorRef) =>
@@ -84,9 +81,11 @@ class TableActor extends Actor {
       }
       roundState = BetsEndState
 
-    case GameStart =>
+    case GameStart(number) =>
       playingPlayers.foreach {
-        player => player.actorRef ! MessageToPlayer(GameIsStarted.message)
+        player =>
+          player.actorRef ! MessageToPlayer(GameIsStarted.message)
+          player.actorRef ! MessageToPlayer(number.toString)
       }
       roundState = GameStartState
 
@@ -145,7 +144,7 @@ class TableActor extends Actor {
 object TableActorMessages {
   case object BetsStart
   case object BetsEnd
-  case object GameStart
+  case class GameStart(number: Int)
   case class GameResult(winningNumber: Int)
   case object GameEnd
   case class AddBetToTable(player: Player, bet: Bet)

@@ -76,9 +76,10 @@ lazy val root = (project in file("."))
       "dev.zio"                  %% "zio"                           % "2.0.12",
       "dev.zio"                  %% "zio-streams"                   % "2.0.12",
       "dev.zio"                  %% "zio-interop-cats"              % "23.0.0.4",
-      "io.github.timwspence"     %% "cats-stm"                      % "0.11.0",
+      "io.github.timwspence"     %% "cats-stm"                      % "0.11.0" ,
     )
   )
+
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -97,6 +98,5 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "org.slf4j" % "slf4j-simple" % "2.0.13"
 )
-
 
 

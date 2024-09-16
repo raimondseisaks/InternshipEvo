@@ -33,7 +33,9 @@ object WebSocketClient extends App {
       if (message.text == "Close-Connection") {
         continue = false
         println("Click enter to close client app")
-      } else {
+      }
+      else if (message.text.matches("""\d+""")) {}
+      else {
         println(s"Server: ${message.text}")
         System.out.flush()
       }

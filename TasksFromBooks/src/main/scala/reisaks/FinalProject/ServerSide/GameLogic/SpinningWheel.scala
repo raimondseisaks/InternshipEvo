@@ -9,7 +9,7 @@ import scala.util.Random
 object SpinningWheel {
 
   private def generateRandomNumber(): IO[Int] = IO {
-    Random.nextInt(101)
+    Random.nextInt(100) + 1
   }
 
   def program(tableRef: ActorRef): IO[Unit] = {
@@ -18,9 +18,9 @@ object SpinningWheel {
       _ <- IO.sleep(10.seconds)
       _ <- IO(tableRef ! BetsEnd)
       _ <- IO.sleep(2.seconds)
-      _ <- IO(tableRef ! GameStart)
-      _ <- IO.sleep(5.seconds)
       number <- generateRandomNumber()
+      _ <- IO(tableRef ! GameStart(number))
+      _ <- IO.sleep(5.seconds)
       _ <- IO(tableRef ! GameResult(number))
       _ <- IO.sleep(3.seconds)
       _ <- IO(tableRef ! GameEnd)

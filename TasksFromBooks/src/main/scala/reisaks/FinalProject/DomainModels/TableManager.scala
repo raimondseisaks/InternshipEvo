@@ -64,6 +64,8 @@ object AllTables {
   val tableFiveActor: ActorRef = system.actorOf(tableProps, "Table-5")
   val tableSixActor: ActorRef = system.actorOf(tableProps, "Table-6")
   val tableSevenActor: ActorRef = system.actorOf(tableProps, "Table-7")
+  val tableEightActor: ActorRef = system.actorOf(tableProps, "Table-8")
+  val tableNineActor: ActorRef = system.actorOf(tableProps, "Table-9")
   val allTableRef: Set[ActorRef] = Set(
                                   tableOneActor,
                                   tableTwoActor,
@@ -71,7 +73,9 @@ object AllTables {
                                   tableFourActor,
                                   tableFiveActor,
                                   tableSixActor,
-                                  tableSevenActor)
+                                  tableSevenActor,
+                                  tableEightActor,
+                                  tableNineActor)
 }
 
 

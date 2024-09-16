@@ -42,7 +42,8 @@ Sub-tasks of spinning wheel game implementation
 
 **How to launch spinning wheel game**
 1. Launch WebSocketServer
-2. To connect to server from CLI use sbt "runMain reisaks.FinalProject.ClientSide.WebSocketClient ws://localhost:8080 <non-empty-unique-playerId>"
+2. To connect to server from CLI use sbt "runMain reisaks.FinalProject.ClientSide.WebSocketClient ws://localhost:8080 <non-empty-unique-playerId>" (for CLI version)
+3. To access to react version move to "cd src/main/scala/reisaks/FinalProject/ClientSide/FrontEnd/my-app" and then start "npm start"
 
 **Available commands**
 1. Join-Table <TableName>
