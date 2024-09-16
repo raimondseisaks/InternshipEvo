@@ -1,5 +1,8 @@
 package reisaks.FinalProject.DomainModels
 
+import java.util.UUID
+
 class Id {
-  def StringId : String = java.util.UUID.randomUUID.toString
+  private val id: UUID = java.util.UUID.randomUUID
+  def getStringId = id.toString
 }

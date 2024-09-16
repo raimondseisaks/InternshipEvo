@@ -32,10 +32,25 @@ Sub-tasks of spinning wheel game implementation
 5. Client Application (Client-Side) (Est. time 3 days)
 6. Testing phase (Est. time 2 days)
 
+**Additional Task! You can choose from 2 Options:**
+1. Support Multiple tables aka lobby. Player when connects receives tables list with available tables. It can choose which table to join. Player with given playerId can play only in one table.
+2. Add Kafka with following functionalities:
+* Integrate embendded-kafka https://github.com/embeddedkafka/embedded-kafka
+* After round is finished you publish events (GameStarted(gameRoundId), GameResulted(gameRoundId, winnerList (playerId -> Win(amount)/Lose(amount)))) to kafka topic. You can send those events after each gameRound as List() or after each command one by one.
+* Add small subscriber app which listens kafka topic, read events and writes them to the file for example
 
-How to launch and use spinning wheel game
+
+**How to launch spinning wheel game**
 1. Launch WebSocketServer
-2. To connect to server from CLI use sbt "runMain reisaks.FinalProject.ClientSide.WebSocketClient ws://localhost:8080 <non-empty-unique-playerId>"
+2. To connect to server from CLI use sbt "runMain reisaks.FinalProject.ClientSide.WebSocketClient ws://localhost:8080 <non-empty-unique-playerId>" (for CLI version)
+3. To access to react version move to "cd src/main/scala/reisaks/FinalProject/ClientSide/FrontEnd/my-app" and then start "npm start"
+
+**Available commands**
+1. Join-Table <TableName>
+2. Exit-Table
+3. Add-Bet <Bet-Code> <Amount>
+4. Exit-Server
+5. Show Available Tables
 
 
 

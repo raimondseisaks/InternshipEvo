@@ -1,7 +1,7 @@
 package reisaks.FinalProject.DomainModels
 import scala.util.Try
 
-case class Bet(betId: Id, betCode: Int, amount: BigDecimal)
+case class Bet(betId: Id, betCode: Int, amount: BigDecimal) //
 
 object Bet {
 

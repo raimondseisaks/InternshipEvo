@@ -1,0 +1,59 @@
+#login {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#mainview {
+    background-image: url("../public/Assets/mainannon.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+#footer {
+    font-weight: bold;
+    background-image: url("../public/Assets/back2.jpeg");
+    height: 20vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h2 {
+    font-weight: bold;
+}

@@ -1,15 +1,15 @@
 package reisaks.FinalProject.ServerSide.GameLogic
 
-import reisaks.FinalProject.DomainModels.{Table, Player}
+import reisaks.FinalProject.DomainModels.{TableOfBets, Player}
 
 object BetEvaluationService {
-  def evaluateSum(player: Player, table: Table, winningNum: Int): Option[BigDecimal] =
-    table.playerBets.get(player) match {
+  def evaluateSum(player: Player, tableOfBets: TableOfBets, winningNum: Int): Option[BigDecimal] =
+    tableOfBets.playerBets.get(player) match {
       case Some(bets) =>
         val sum = bets.foldLeft(BigDecimal(0)) { (acc, w) =>
           if (winningNum == w.betCode)
             acc + winningCoefficient(w.amount, winningNum)
-          else acc
+          else acc - w.amount
         }
         Some(sum)
       case _ => None

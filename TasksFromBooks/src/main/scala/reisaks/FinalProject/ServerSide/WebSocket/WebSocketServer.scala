@@ -5,20 +5,21 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.ws.{Message, TextMessage}
 import akka.http.scaladsl.server.Directives._
-import akka.pattern.ask
-import akka.remote.transport.ActorTransportAdapter.AskTimeout
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Flow
 import cats.effect.{IO, IOApp, Ref}
 import cats.effect.unsafe.implicits.global
 import reisaks.FinalProject.DomainModels._
+
 import scala.io.StdIn
-import reisaks.FinalProject.ServerSide.AkkaActors.TableActorRef.tableActor
-import reisaks.FinalProject.ServerSide.AkkaActors.TableActorMessages._
 import akka.actor.ActorRef
 import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Sink, Source}
 import reisaks.FinalProject.ServerSide.AkkaActors.PlayerActorMessages._
+import reisaks.FinalProject.DomainModels.TableManager._
+import reisaks.FinalProject.ServerSide.Kafka.{EmbeddedKafka, EventConsumer}
+
+import scala.util.Success
 
 
 object WebSocketServer extends IOApp.Simple {
@@ -26,17 +27,20 @@ object WebSocketServer extends IOApp.Simple {
   def run: IO[Unit] = {
     for {
       system <- IO(ActorSystem("MyActorSystem"))
-      playerIdsRef <- Ref.of[IO, Set[String]](Set.empty)
+      playerIdsRef <- Ref.of[IO, Map[Player, Option[ActorRef]]](Map.empty)
       playerManager = new OnlinePlayerManager(system, playerIdsRef)
-      _ <- startServer(playerManager, system)
+      serverFiber <- startServer(playerManager, system).start
+      kafkaFiber <- EmbeddedKafka.run().start
+      _ <- serverFiber.join
+      _ <- kafkaFiber.join
     } yield ()
   }
 
   private def startServer(playerManager: OnlinePLayerManagerTrait, system: ActorSystem): IO[Unit] = {
+
     IO {
       implicit val sys: ActorSystem = system
       implicit val materializer: ActorMaterializer = ActorMaterializer()
-      import system.dispatcher
 
       val route = {
         pathPrefix(Segment) { playerId =>
@@ -76,21 +80,27 @@ object WebSocketServer extends IOApp.Simple {
       }
       .map { msg =>
         msg.split("\\s+") match {
-          case Array("Join-Table") => tableActor ? JoinTable(player)
-          case Array("Exit-Table") => tableActor ? LeaveTable(player)
+          case Array("Join-Table", tableName) => joinTable(player, tableName, playerManager)
+          case Array("Exit-Table") => exitTable(player, playerManager)
           case Array("Add-Bet", betCode, amount) =>
             Bet.create(betCode, amount) match {
-              case Right(bet) =>
-                tableActor ? AddBetToTable(player, bet)
-              case Left(error) => player.actorRef ? MessageToPlayer(error.message)
+              case Right(bet) => addBet(player, playerManager, bet)
+              case Left(error) => player.actorRef ! MessageToPlayer(error.message)
             }
+          case Array("Show-Available-Tables") => showAvailableTables(player)
           case Array("Exit-Server") =>
-            player.actorRef ? MessageToPlayer("You disconnected form server")
-            playerManager.removePlayer(player).unsafeToFuture()
+            playerManager.isPlayerPlaying(player).unsafeToFuture().onComplete {
+              case Success(result) =>
+                if (result) {
+                  player.actorRef ! MessageToPlayer("Please leave the table")
+                }
+                else {
+                  player.actorRef ! MessageToPlayer("Close-Connection")
+                  playerManager.removePlayer(player).unsafeToFuture()
+                }
+            }
         }
-      }
-      .to(Sink.ignore)
-
+      }.to(Sink.ignore)
     Flow.fromSinkAndSource(incoming, source)
   }
 

@@ -1,0 +1,22 @@
+.footer {
+    background-image: url("../../Assets/back2.jpeg");
+    height: 15vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.thanks {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.navig {
+    font-weight: bold;
+    color: white;
+}

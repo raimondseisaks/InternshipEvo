@@ -1,0 +1,306 @@
+{
+    "tableName" : "Table-6",
+    "roundId" : "0b9545a7-25f1-4ada-beaa-2474a32501ba",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-6",
+    "roundId" : "0b9545a7-25f1-4ada-beaa-2474a32501ba",
+    "state" : "GameResultsState",
+    "betsList" : {
+        "123" : {
+            "Lose" : {
+                "amount" : -44
+            }
+        }
+    }
+}
+{
+    "tableName" : "Table-4",
+    "roundId" : "d4dc8aa9-126d-4d2d-9849-c293af7edecc",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-4",
+    "roundId" : "d4dc8aa9-126d-4d2d-9849-c293af7edecc",
+    "state" : "GameResultsState",
+    "betsList" : {
+        "kafkaTest" : {
+            "Lose" : {
+                "amount" : -110
+            }
+        }
+    }
+}
+{
+    "tableName" : "Table-8",
+    "roundId" : "21bbe58d-ff81-49ef-990b-d2cdf15d663f",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-8",
+    "roundId" : "21bbe58d-ff81-49ef-990b-d2cdf15d663f",
+    "state" : "GameResultsState",
+    "betsList" : {
+        "123" : {
+            "Lose" : {
+                "amount" : -34
+            }
+        }
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "3e0e8537-6d75-4c4f-924a-a7f3011dca00",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "3e0e8537-6d75-4c4f-924a-a7f3011dca00",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "9cdb98fd-5911-4b1c-8545-ca5b7613e8b3",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "9cdb98fd-5911-4b1c-8545-ca5b7613e8b3",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "5b4f2832-7ab6-4aef-94d8-1f52ae73ad94",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "5b4f2832-7ab6-4aef-94d8-1f52ae73ad94",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "36fe11d5-5068-44f6-a692-83660caaf4e1",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "36fe11d5-5068-44f6-a692-83660caaf4e1",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "f170c863-a1f6-4071-9e57-58c81347219b",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "f170c863-a1f6-4071-9e57-58c81347219b",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "872d3a81-f122-433f-9362-0654ba8bee1e",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "872d3a81-f122-433f-9362-0654ba8bee1e",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "b8dd42fd-78ce-45a4-b69b-bb1ca4337cec",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "b8dd42fd-78ce-45a4-b69b-bb1ca4337cec",
+    "state" : "GameResultsState",
+    "betsList" : {
+        "player1" : {
+            "Lose" : {
+                "amount" : -13
+            }
+        }
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "1c15b6ba-fcd6-4add-93e1-8ad058b3b679",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "1c15b6ba-fcd6-4add-93e1-8ad058b3b679",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "febabaff-5239-4296-87dc-54e41b1ed4ef",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "febabaff-5239-4296-87dc-54e41b1ed4ef",
+    "state" : "GameResultsState",
+    "betsList" : {
+        "player2" : {
+            "Lose" : {
+                "amount" : -13
+            }
+        },
+        "player1" : {
+            "Lose" : {
+                "amount" : -13
+            }
+        }
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "dd30c119-3737-45de-bcc1-a38cc02e76d2",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "dd30c119-3737-45de-bcc1-a38cc02e76d2",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "bb443e19-2b9c-46bb-857d-8932771ca3e1",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-2",
+    "roundId" : "bb443e19-2b9c-46bb-857d-8932771ca3e1",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "b0265864-9e03-42e9-897e-3d33231ef117",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "b0265864-9e03-42e9-897e-3d33231ef117",
+    "state" : "GameResultsState",
+    "betsList" : {
+        "swoosh" : {
+            "Lose" : {
+                "amount" : -60
+            }
+        }
+    }
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "05733852-3c83-4b31-b292-6b5cefc4dad1",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "05733852-3c83-4b31-b292-6b5cefc4dad1",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "818df810-dd0c-4369-afac-a0d24ee9b820",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "818df810-dd0c-4369-afac-a0d24ee9b820",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "00e630fe-b465-497b-bb46-5e9218fe779c",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "00e630fe-b465-497b-bb46-5e9218fe779c",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "8f189617-8c14-422a-9959-270df410572c",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "8f189617-8c14-422a-9959-270df410572c",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "bdff6174-560b-483b-9139-cfe6b08932a7",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "bdff6174-560b-483b-9139-cfe6b08932a7",
+    "state" : "GameResultsState",
+    "betsList" : {
+        "swoosh1" : {
+            "Lose" : {
+                "amount" : -52
+            }
+        }
+    }
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "e28588f9-c339-4e10-8ad8-9c614a5cfa7a",
+    "state" : "BetsStartState"
+}
+{
+    "tableName" : "Table-1",
+    "roundId" : "e28588f9-c339-4e10-8ad8-9c614a5cfa7a",
+    "state" : "GameResultsState",
+    "betsList" : {
+        
+    }
+}
